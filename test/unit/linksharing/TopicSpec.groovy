@@ -35,19 +35,8 @@ class TopicSpec extends Specification {
     }
 
     void "name should be unique"() {
-        setup:
-        Topic topic = new Topic(name: 'History')
 
-        and:
-        topic.save()
 
-        and:
-        Topic topic2=new Topic(name:'History')
 
-        when:
-        topic2.save()
-
-        then:
-        topic2.errors.getFieldError('name')?.code=='unique'
     }
 }
