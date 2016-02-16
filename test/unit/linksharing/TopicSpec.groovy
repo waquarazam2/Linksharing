@@ -34,9 +34,5 @@ class TopicSpec extends Specification {
 
     }
 
-    void "name should be unique"() {
 
-
-
-    }
 }

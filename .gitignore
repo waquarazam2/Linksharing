@@ -13,7 +13,6 @@ linksharing-grailsPlugins.iml
 .classpath
 .idea/
 .slcache/
-grails-app/conf/
 grails-app/controllers/
 grails-app/views/
 

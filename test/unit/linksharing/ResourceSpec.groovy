@@ -15,6 +15,7 @@ class ResourceSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "Resource can have many ratings"() {
+
     }
 }

@@ -13,5 +13,6 @@ class Topic {
         name(nullable: false,blank: false,unique: true)
         createdBy(nullable: false)
         visibility(nullable: false)
+
     }
 }
