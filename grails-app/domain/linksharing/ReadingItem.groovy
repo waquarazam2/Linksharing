@@ -7,6 +7,7 @@ class ReadingItem {
     Date dateCreated
     Date lastUpdated
 
+
     static constraints = {
         resource(nullable: false)
         user(nullable: false,unique: 'resource')

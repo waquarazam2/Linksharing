@@ -1,5 +1,7 @@
 package linksharing
+
 import linksharing.Visibility
+
 class Topic {
     String name;
     User createdBy;
@@ -7,12 +9,19 @@ class Topic {
     Date lastUpdated
     Visibility visibility
 
-    static  hasMany = [subscriptions:Subscription,resources:Resource]
+    static hasMany = [subscriptions: Subscription, resources: Resource]
 
     static constraints = {
-        name(nullable: false,blank: false,unique: true)
+        name(nullable: false, blank: false, unique: true)
         createdBy(nullable: false)
         visibility(nullable: false)
 
+    }
+
+    def afterInsert() {
+        Topic.withNewSession {
+            Subscription subscription = new Subscription(topic: this, createdBy: this.createdBy, seriousness: Seriousness.VERY_SERIOUS)
+            subscription.save()
+        }
     }
 }
