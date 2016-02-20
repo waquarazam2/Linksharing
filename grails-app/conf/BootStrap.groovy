@@ -48,19 +48,26 @@ class BootStrap {
 
     void createResource() {
         if (Resource.count == 0) {
-            Topic.getAll().each {index->
+            Topic.getAll().each { index ->
+                User topicCreator =index.createdBy
                 (1..2).each {
-                    DocumentResource documentResource = new DocumentResource(filePath: 'home',description: index.name)
+                    DocumentResource documentResource = new DocumentResource(filePath: 'home', description: index.name,createdBy: topicCreator,topic: index)
+
                     if (documentResource.save()) {
                         it.resources.add(documentResource)
                         log.info('document resource add to Topic')
+                    } else {
+
+                        log.error documentResource.errors
                     }
                 }
                 (1..2).each {
-                    LinkResource linkResource = new LinkResource(url: 'www.google.com',index.name)
+                    LinkResource linkResource = new LinkResource(url: 'www.google.com', description:  index.name,createdBy: topicCreator,topic: index)
                     if (linkResource.save()) {
                         it.resources.add(linkResource)
                         log.info('link resource added to topic')
+                    } else {
+                        log.error linkResource.errors
                     }
                 }
             }
@@ -70,6 +77,17 @@ class BootStrap {
     void subscribeTopics() {
         Topic topics = Topic.getAll()
         User users = User.getAll()
+        users.each{user->
+            (topics-user.topics).each{
+                Subscription subscription =Subscription.findOrCreateWhere(topic: it,user: user)
+                if(subscription.save()){
+                    log.info("subscription created for user ${user} and topic ${it}")
+                }
+                else{
+                    log.error("unable to create subscription for user ${user} and topic ${it}")
+                }
+            }
+        }
 
     }
 
