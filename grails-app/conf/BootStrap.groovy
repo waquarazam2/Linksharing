@@ -7,6 +7,7 @@ class BootStrap {
         createUser()
         createTopic()
         createResource()
+        subscribeTopics()
 
     }
 
@@ -75,11 +76,11 @@ class BootStrap {
     }
 
     void subscribeTopics() {
-        Topic topics = Topic.getAll()
-        User users = User.getAll()
+        List<Topic> topics = Topic.getAll()
+        List<User> users = User.getAll()
         users.each{user->
             (topics-user.topics).each{
-                Subscription subscription =Subscription.findOrCreateWhere(topic: it,user: user)
+                Subscription subscription =Subscription.findOrCreateWhere(topic: it,user: user,seriousness: Seriousness.CASUAL)
                 if(subscription.save()){
                     log.info("subscription created for user ${user} and topic ${it}")
                 }
