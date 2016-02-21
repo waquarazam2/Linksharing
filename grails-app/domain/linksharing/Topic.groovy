@@ -1,7 +1,4 @@
 package linksharing
-
-import linksharing.Visibility
-
 class Topic {
     String name;
     User createdBy;
@@ -23,5 +20,9 @@ class Topic {
             Subscription subscription = new Subscription(topic: this, createdBy: this.createdBy, seriousness: Seriousness.VERY_SERIOUS)
             subscription.save()
         }
+    }
+
+    String toString(){
+        return name
     }
 }

@@ -28,4 +28,8 @@ class User {
         admin(nullable: true)
         active(nullable: true)
     }
+
+    String toString(){
+        return getName()
+    }
 }
