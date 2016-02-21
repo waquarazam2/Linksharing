@@ -15,6 +15,10 @@ class DocumentResourceSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "TestingToString"(){
+        setup:
+        DocumentResource documentResource=new DocumentResource(filePath: 'Home')
+        expect:
+        documentResource.toString()=="Home"
     }
 }

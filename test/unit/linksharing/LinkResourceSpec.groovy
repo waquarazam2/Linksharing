@@ -15,6 +15,11 @@ class LinkResourceSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "TestingToString"(){
+        setup:
+        LinkResource linkResource=new LinkResource(url: "https://www.google.com")
+
+        expect:
+        linkResource.toString()=="https://www.google.com"
     }
 }
