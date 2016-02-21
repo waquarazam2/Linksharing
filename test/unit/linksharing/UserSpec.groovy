@@ -136,7 +136,7 @@ class UserSpec extends Specification {
         false    | null
     }
 
-    void "toString"() {
+    void "testingToString"() {
         setup:
         User user = new User(firstName: "Waquar", lastName: "Azam")
         expect:

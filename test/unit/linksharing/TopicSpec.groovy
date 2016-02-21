@@ -34,7 +34,7 @@ class TopicSpec extends Specification {
 
     }
 
-    void "toString"(){
+    void "TestingToString"(){
         setup:
         Topic topic=new Topic(name: 'History')
 
