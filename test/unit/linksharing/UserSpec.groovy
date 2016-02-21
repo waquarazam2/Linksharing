@@ -136,5 +136,12 @@ class UserSpec extends Specification {
         false    | null
     }
 
+    void "toString"() {
+        setup:
+        User user = new User(firstName: "Waquar", lastName: "Azam")
+        expect:
+        user.toString() == user.name
+    }
+
 
 }

@@ -1,5 +1,4 @@
 package linksharing
-import linksharing.Seriousness
 class Subscription {
     Topic topic
     User user

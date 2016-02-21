@@ -34,5 +34,12 @@ class TopicSpec extends Specification {
 
     }
 
+    void "toString"(){
+        setup:
+        Topic topic=new Topic(name: 'History')
+
+        expect:
+        topic.name==topic.toString()
+    }
 
 }
