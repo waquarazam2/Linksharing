@@ -13,6 +13,7 @@ class User {
     Date lastUpdated
 
     static transients =["name"]
+    transient confirmPassword
 
     String getName(){
         firstName+" "+lastName
@@ -27,6 +28,19 @@ class User {
         photo(nullable: true)
         admin(nullable: true)
         active(nullable: true)
+        confirmPassword(bindable:true,validator:{val,obj->
+            if(obj.id){
+                if(val==obj.password){
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            else{
+                return true
+            }
+        })
     }
 
     String toString(){

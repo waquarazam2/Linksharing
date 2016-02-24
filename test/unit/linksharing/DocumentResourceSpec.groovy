@@ -15,10 +15,29 @@ class DocumentResourceSpec extends Specification {
     def cleanup() {
     }
 
-    void "TestingToString"(){
+    void "TestingToString"() {
         setup:
-        DocumentResource documentResource=new DocumentResource(filePath: 'Home')
+        DocumentResource documentResource = new DocumentResource(filePath: 'Home')
         expect:
-        documentResource.toString()=="Home"
+        documentResource.toString() == "Home"
+    }
+
+    void 'File path should not be blank'() {
+        given:
+        DocumentResource documentResource = new DocumentResource()
+
+        and:
+        documentResource.filePath = filePath
+
+        when:
+        documentResource.validate()
+
+        then:
+        documentResource.errors.getFieldError('filePath')?.code == result
+
+        where:
+        filePath | result
+        null     | 'nullable'
+        '/Home'  | null
     }
 }

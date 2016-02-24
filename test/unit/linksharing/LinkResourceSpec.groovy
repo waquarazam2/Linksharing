@@ -22,4 +22,24 @@ class LinkResourceSpec extends Specification {
         expect:
         linkResource.toString()=="https://www.google.com"
     }
+
+    void "url should be valid"(){
+        setup:
+        LinkResource linkResource=new LinkResource()
+
+        and:
+        linkResource.url=url
+
+        when:
+        linkResource.validate()
+
+        then:
+        linkResource.errors.getFieldError('url')?.code==result
+
+        where:
+        url|result
+        "www.google.com"|'url.invalid'
+        "https://www.google.com"|null
+        ''|'blank'
+    }
 }

@@ -14,8 +14,8 @@ class BootStrap {
 
     List<User> createUser() {
         if (User.count == 0) {
-            User admin = new User(email: 'waquar.azam@tothenew.com', userName: 'waquarazam2', password: '123456dfefe', firstName: 'Waquar', lastName: 'Azam', admin: true, active: true)
-            User normalUser = new User(email: 'mohan.gupta@tothenew.com', userName: 'mohan1243', password: 'sa231dwerfewrc', firstName: 'Mohan', lastName: 'Gupta', admin: false, active: true)
+            User admin = new User(email: 'waquar.azam@tothenew.com', userName: 'waquarazam2', password: '123456dfefe', firstName: 'Waquar', lastName: 'Azam', admin: true, active: true,confirmPassword:'123456dfefe' )
+            User normalUser = new User(email: 'mohan.gupta@tothenew.com', userName: 'mohan1243', password: 'sa231dwerfewrc', firstName: 'Mohan', lastName: 'Gupta', admin: false, active: true,confirmPassword:'sa231dwerfewrc')
             List users = []
             if (admin.save(flush: true, failOnError: true)) {
                 log.info("successfully created ${admin}")
@@ -53,7 +53,7 @@ class BootStrap {
         Topic.getAll().each { topic ->
             User topicCreator = topic.createdBy
             (1..2).each {
-                DocumentResource documentResource = new DocumentResource(filePath: 'home', description: topic.name, createdBy: topicCreator, topic: topic)
+                DocumentResource documentResource = DocumentResource.findOrCreateWhere(filePath: 'home', description: topic.name, createdBy: topicCreator, topic: topic)
 
                 if (documentResource.save()) {
                     topic.resources.add(documentResource)
@@ -64,7 +64,7 @@ class BootStrap {
                 }
             }
             (1..2).each {
-                LinkResource linkResource = new LinkResource(url: 'https://www.google.com', description: topic.name, createdBy: topicCreator, topic: topic)
+                LinkResource linkResource =LinkResource.findOrCreateWhere(url: 'https://www.google.com', description: topic.name, createdBy: topicCreator, topic: topic)
                 if (linkResource.save()) {
                     topic.resources.add(linkResource)
                     log.info('link resource added to topic')
