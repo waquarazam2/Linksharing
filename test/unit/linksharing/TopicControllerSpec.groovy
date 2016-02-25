@@ -28,7 +28,7 @@ class TopicControllerSpec extends Specification {
         response.contentAsString == 'success'
     }
 
-    void "show topic subscribed"() {
+    void "show not topic subscribed"() {
         given:
         Topic topic=new Topic(visibility: Visibility.PRIVATE)
         Topic.metaClass.'static'.findById={def id->
@@ -51,7 +51,7 @@ class TopicControllerSpec extends Specification {
 
     }
 
-    void "topic not subscribed"(){
+    void "topic does not exist"(){
         given:
         Topic.metaClass.'static'.findById={def id->
             return null
