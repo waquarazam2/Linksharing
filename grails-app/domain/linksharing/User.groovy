@@ -34,12 +34,7 @@ class User {
         active(nullable: true)
         confirmPassword(bindable:true,validator:{val,obj->
             if(obj.id){
-                if(val==obj.password){
-                    return true
-                }
-                else {
-                    return false
-                }
+                return val==obj.password
             }
             else{
                 return true
