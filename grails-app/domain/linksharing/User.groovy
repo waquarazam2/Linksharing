@@ -15,6 +15,10 @@ class User {
     static transients =["name"]
     transient confirmPassword
 
+    static mapping = {
+        type:'blob'
+    }
+
     String getName(){
         firstName+" "+lastName
     }
