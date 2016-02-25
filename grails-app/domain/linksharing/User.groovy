@@ -16,7 +16,7 @@ class User {
     transient confirmPassword
 
     static mapping = {
-        type:'blob'
+        photo type:'blob'
     }
 
     String getName(){
