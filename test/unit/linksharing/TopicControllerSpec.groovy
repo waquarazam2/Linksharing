@@ -28,25 +28,40 @@ class TopicControllerSpec extends Specification {
         response.contentAsString == 'success'
     }
 
-    void "show redirect when topic not public"() {
+    void "show topic subscribed"() {
+        given:
+        Topic topic=new Topic(visibility: Visibility.PRIVATE)
+        Topic.metaClass.'static'.findById={def id->
+            return topic
+        }
+
+        and:
+        session.user=new User()
+
+        and:
+        User.metaClass.subscriptions={
+            null
+        }
+        when:
+        controller.show()
+
+        then:
+        response.redirectedUrl=='/login/index'
+        flash.error == 'Topic nut subscribed'
+
+    }
+
+    void "topic not subscribed"(){
         given:
         Topic.metaClass.'static'.findById={def id->
-            return new Topic(visibility: Visibility.PRIVATE)
+            return null
         }
-
-        and:
-        Subscription.metaClass.find{def it->
-            return  true
-        }
-
-        and:
-        session.user==new User()
 
         when:
         controller.show()
 
         then:
         response.redirectedUrl=='/login/index'
-
+        flash.error=='Topic does not exist!'
     }
 }
