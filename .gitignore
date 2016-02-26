@@ -1,18 +1,9 @@
 lib
 out
-scripts
 target
-web-app
-wrapper
-grails-app/assets
-grails-app/i18n
-grails-app/migrations/
-grails-app/services
 linksharing.iml
 linksharing-grailsPlugins.iml
 .classpath
 .idea/
 .slcache/
-grails-app/controllers/
-grails-app/views/
 
