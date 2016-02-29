@@ -8,8 +8,8 @@ class BootStrap {
         createTopic()
         createResource()
         subscribeTopics()
-//        createReadingItems()
-//        createResourceRatings()
+        createReadingItems()
+        createResourceRatings()
     }
 
     List<User> createUser() {
@@ -91,11 +91,39 @@ class BootStrap {
     }
 
     void createReadingItems() {
+        ReadingItem readingItem
+        Resource resource
+        Subscription.getAll().each {
+            resource = Resource.findByTopic(it.topic)
+            if ((resource.createdBy != it.user) && (!ReadingItem.findByUserAndResource(it.user, resource))) {
+                readingItem = new ReadingItem(user: it.user, resource: resource, isRead: false)
+                if (readingItem.save()) {
+                    log.info("reading item created for ${it.user} and ${resource}")
+                }
+            }
+        }
+    }
+
+    void createResourceRatings() {
+        ResourceRating rating
+        ReadingItem.getAll().each {
+            if (!it.isRead) {
+                rating = new ResourceRating(user: it.user, resource: it.resource, score: 1)
+                if (rating.save()) {
+                    log.info("created resource rating for user ${it.user} and resource ${it.resource}")
+                }
+                else
+                    log.error("unable to create resource rating for user ${it.user} and resource ${it.resource}")
+            }
+        }
+    }
+
+   /* void createReadingItems() {
         List<User> users = User.getAll()
         users.each { user ->
-            Set subscribedTopics = user.topics
+            List subscribedTopics = user.topics
             subscribedTopics.each { subscribedTopic ->
-                Set resources = subscribedTopic.resources
+                List resources = subscribedTopic.resources
                 resources.each { resource ->
                     if (resource.createdBy != user) {
                         ReadingItem readingItem = ReadingItem.findOrCreateWhere(user: user, resource: resource)
@@ -114,7 +142,7 @@ class BootStrap {
     }
 
     void createResourceRatings() {
-        Set readingItems = ReadingItem.findAllByIsRead(false)
+        List readingItems = ReadingItem.findAllByIsRead(false)
         readingItems.each { readingItem ->
             User user = readingItem.user
             Resource resource = readingItem.resource
@@ -127,7 +155,7 @@ class BootStrap {
         }
 
     }
-
+*/
 
     def destroy = {
     }
