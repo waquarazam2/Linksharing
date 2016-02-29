@@ -34,48 +34,48 @@ class LoginControllerSpec extends Specification {
         response.contentAsString == "failure"
     }
 
-    void "Login Handler"(){
+    void "Login Handler"() {
         setup:
-        User.metaClass.'static'.findByUserNameAndPassword={ String username, String password ->
-            return  new User(active: active)
+        User.metaClass.'static'.findByUserNameAndPassword = { String username, String password ->
+            return new User(active: active)
         }
 
         when:
         controller.loginHandler()
 
         then:
-        response.forwardedUrl==result
-        flash.error==error
+        response.forwardedUrl == result
+        flash.error == error
 
         where:
-        active|result|error
-        true|'/login/index'|null
-        false|null|'Your account is not active'
+        active | result         | error
+        true   | '/login/index' | null
+        false  | null           | 'Your account is not active'
     }
 
-    void "Login Handler should set error"(){
+    void "Login Handler should set error"() {
         setup:
-        User.metaClass.'static'.findByUserNameAndPassword={ String username, String password ->
-            return  null
+        User.metaClass.'static'.findByUserNameAndPassword = { String username, String password ->
+            return null
         }
 
         when:
         controller.loginHandler()
 
         then:
-        flash.error=='User not found'
+        flash.error == 'User not found'
     }
 
-    void "logout"(){
+    void "logout"() {
         setup:
-        session.user=new User()
+        session.user = new User()
 
         when:
         controller.logout()
 
         then:
-        session.user==null
-        response.forwardedUrl=='/login/index'
+        session.user == null
+        response.forwardedUrl == '/login/index'
     }
 
 }

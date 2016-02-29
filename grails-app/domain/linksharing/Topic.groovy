@@ -8,6 +8,10 @@ class Topic {
 
     static hasMany = [subscriptions: Subscription, resources: Resource]
 
+    static  mapping = {
+        sort name:'asc'
+    }
+
     static constraints = {
         name(nullable: false, blank: false, unique: true)
         createdBy(nullable: false)
@@ -24,5 +28,11 @@ class Topic {
 
     String toString(){
         return name
+    }
+
+    static TopicVO getTrendingTopics(){
+        List trendingTopics= Topic.createCriteria().list {
+
+        }
     }
 }
