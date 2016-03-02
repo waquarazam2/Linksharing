@@ -16,7 +16,7 @@ class User {
     transient confirmPassword
 
     static mapping = {
-        photo type: 'blob'
+        photo sqlType: 'longblob'
         id sort: 'desc'
     }
 

@@ -2,6 +2,7 @@ package linksharing
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import spock.lang.IgnoreRest
 import spock.lang.Specification
 
 /**
@@ -17,28 +18,35 @@ class ResourceControllerSpec extends Specification {
     def cleanup() {
     }
 
-    void "delete"() {
+    void "delete successful"() {
         setup:
-
-        LinkResource resource = new LinkResource()
-        Resource.metaClass.'static'.load = { def id ->
-            return control
+        Resource resource
+        Resource.metaClass.static.load = { def id ->
+            return resource
         }
-
         and:
+        resource=new LinkResource()
+
         resource.metaClass.delete = {}
 
         when:
         controller.delete()
 
         then:
-        response.contentAsString == result
+        response.contentAsString == ""
 
-        where:
-        control  | result
-        resource | ""
-        null     | 'resource not found'
+    }
 
+    def "delete resource not found"(){
+        setup:
+        Resource.metaClass.static.load = { def id ->
+            return null
+        }
+        Resource.metaClass.delete={}
+        when:
+        controller.delete()
 
+        then:
+        response.contentAsString == 'resource not found'
     }
 }

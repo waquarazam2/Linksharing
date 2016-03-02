@@ -8,7 +8,7 @@ import spock.util.mop.Use
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
-@Mock([Subscription,Topic,User])
+@Mock([Subscription, Topic, User])
 @TestFor(SubscriptionController)
 class SubscriptionControllerSpec extends Specification {
 
@@ -45,16 +45,16 @@ class SubscriptionControllerSpec extends Specification {
         response.contentAsString == 'not found'
     }
 
-    void "save"(){
+    void "save"() {
         setup:
-        Topic topic=new Topic()
+        Topic topic = new Topic()
         topic.save(validate: false)
-        Topic.metaClass.'static'.get={long id->
+        Topic.metaClass.'static'.get = { long id ->
             return null
         }
         User user = new User()
         user.save(validate: false)
-        session.user=user
+        session.user = user
 
         when:
         controller.save(1)
@@ -62,5 +62,39 @@ class SubscriptionControllerSpec extends Specification {
         then:
         response.contentAsString == 'success'
 
+    }
+
+    def "update subscription"() {
+        setup:
+        Subscription subscription = new Subscription()
+        subscription.save(flush: true, validate: false)
+
+        Subscription.metaClass.save = { Map m ->
+            return control
+        }
+
+        when:
+        controller.update(1L, 'serious')
+
+        then:
+        response.contentAsString == result
+
+        where:
+        control | result
+        true    | 'success'
+        false   | 'errors'
+    }
+
+    def "update subscription or seriousneess not found"(){
+        Subscription.metaClass.static.get={Long id->
+            return null
+
+        }
+
+        when:
+        controller.update(1L,'serious')
+
+        then:
+        response.contentAsString=='subscription or seriousness not found'
     }
 }
