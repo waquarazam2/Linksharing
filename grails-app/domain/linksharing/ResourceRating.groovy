@@ -15,16 +15,15 @@ class ResourceRating {
 
     }
 
-    def getTopPosts(){
+    static List getTopPosts(){
 
-        List<ResourceRating>resources=ResourceRating.createCriteria().list(max:5){
+        List resources=ResourceRating.createCriteria().list(max:5){
             projections{
                 groupProperty('resource')
                 avg('score','avgScore')
+                property('resource.id')
             }
-            'resource'{
-                property('id')
-            }
+
             order('avgScore','desc')
         }
 

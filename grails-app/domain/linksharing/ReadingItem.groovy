@@ -13,4 +13,13 @@ class ReadingItem {
         user(nullable: false,unique: 'resource')
         isRead(nullable: false)
     }
+
+    static boolean changeIsRead(long  id,boolean isRead) {
+        if(ReadingItem.executeUpdate("update ReadingItem set isRead=:isRead where id=:id",[isRead:isRead,id:id])){
+          return true
+        }
+        else{
+          return   false
+        }
+    }
 }

@@ -18,7 +18,7 @@ environments {
     development {
         dataSource {
             password = "igdefault"
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost:3306/Linksharing_DB"
             logSql=true
         }
@@ -26,8 +26,8 @@ environments {
     test {
         dataSource {
             password = "igdefault"
-            dbCreate = "update"
-            url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+            dbCreate = "create-drop"
+            url ="jdbc:mysql://localhost:3306/linksharing_test"
         }
     }
     production {

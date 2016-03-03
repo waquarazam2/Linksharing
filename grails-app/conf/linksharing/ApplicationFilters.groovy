@@ -1,4 +1,3 @@
-/*
 package linksharing
 
 class ApplicationFilters {
@@ -28,4 +27,3 @@ class ApplicationFilters {
         }
     }
 }
-*/

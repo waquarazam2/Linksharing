@@ -1,4 +1,5 @@
 package linksharing
+
 class Topic {
     String name;
     User createdBy;
@@ -8,8 +9,8 @@ class Topic {
 
     static hasMany = [subscriptions: Subscription, resources: Resource]
 
-    static  mapping = {
-        sort name:'asc'
+    static mapping = {
+        sort name: 'asc'
     }
 
     static constraints = {
@@ -26,28 +27,28 @@ class Topic {
         }
     }
 
-    String toString(){
+    String toString() {
         return name
     }
 
-    static TopicVO getTrendingTopics(){
-        List trendingTopics= Resource.createCriteria().list(max:5) {
+    static List<TopicVO> getTrendingTopics() {
+        List trendingTopics = Resource.createCriteria().list(max: 5) {
             projections {
-                createAlias('topic','t')
+                createAlias('topic', 't')
                 groupProperty('t.id')
                 property('t.name')
                 property('t.visibility')
                 property('t.createdBy')
-                count()
+                rowCount('count')
             }
 
-            order('count','desc')
-            order('topic.name','desc')
+            order('count', 'desc')
+            order('t.name', 'desc')
         }
 
-    List<TopicVO> vos = []
-        trendingTopics.each{
-            TopicVO vo =new TopicVO(id:it[0],topicNamrame:it[1],createdBy: it[2],visibility: it[3],count: it[4])
+        List<TopicVO> vos = []
+        trendingTopics.each {
+            TopicVO vo = new TopicVO(id: it[0], topicName: it[1], createdBy: it[3], visibility: it[2], count: it[4])
             vos.add(vo)
         }
         vos
