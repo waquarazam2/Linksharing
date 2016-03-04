@@ -2,5 +2,8 @@ package linksharing
 
 class UtilController {
 
-    def index() { }
+    def index() {
+        log.info('Hello World')
+        log.info(params)
+    }
 }
