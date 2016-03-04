@@ -7,7 +7,8 @@ class LoginController {
             forward(controller: "User", action: "index")
         }
         else{
-            render("failure")
+            //render("failure")
+            render(view: "index")
         }
     }
 

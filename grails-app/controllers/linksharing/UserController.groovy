@@ -3,7 +3,7 @@ package linksharing
 class UserController {
 
     def index() {
-        render 'User dashboard'
+        render(view: "index")
 
     }
 
