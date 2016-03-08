@@ -24,10 +24,45 @@
         text-decoration: underline;
     }
 
-    #search-panel {
+    #search {
         border: solid black;
         border-radius: 8px;
     }
+
+    .panel{
+        border:none;
+        padding:0;
+    }
+
+    .panel-default >.panel-heading,.panel-body{
+        border:2px ridge #92b6bc;
+        padding:10px;
+
+
+    }
+
+    .panel-default>.panel-heading{
+        border-bottom: 0;
+        background: #3c8dbc;
+        font-size:20px;
+        color:#fff;
+
+
+    }
+
+    .panel-default>.panel-body{
+        background: #fffcfe;
+
+    }
+    select{
+        color: #0e0e0e;
+    }
+
+    body{
+        background: #ffffff;
+    }
+
+
     </style>
     <g:layoutHead/>
 </head>

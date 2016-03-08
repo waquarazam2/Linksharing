@@ -13,6 +13,8 @@ class Topic {
         sort name: 'asc'
     }
 
+    static transients = ['subscribedUsers']
+
     static constraints = {
         name(nullable: false, blank: false, unique: true)
         createdBy(nullable: false)
@@ -53,4 +55,10 @@ class Topic {
         }
         vos
     }
+
+    List<User> getSubscribedUsers() {
+        return Subscription.findAllByTopic(this)*.user
+    }
+
+
 }

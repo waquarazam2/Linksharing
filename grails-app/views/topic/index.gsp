@@ -2,19 +2,17 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Login</title>
+    <title>Topic</title>
 </head>
 
 <body>
 <div class="col-xs-1"></div>
 
 <div class="col-xs-4">
-    <g:render template="/topic/trending"/>
+    <g:render template="/user/show"/>
 </div>
 
 <div class="col-xs-6">
-    <g:render template="inbox"/>
-    <g:render template="subscription"/>
 
 </div>
 

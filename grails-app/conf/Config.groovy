@@ -119,3 +119,16 @@ log4j.main = {
     debug 'grails.app'
     all "com.intellgrape.link_sharing.controllers.UtilController"
 }
+
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "waquarazam2@gmail.com"
+        password = "31119932621001"
+        props = ["mail.smtp.auth":"true",
+                 "mail.smtp.socketFactory.port":"465",
+                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback":"false"]
+    }
+}

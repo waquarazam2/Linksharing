@@ -8,7 +8,7 @@
             </div>
 
             <div class="modal-body">
-                <g:form class="form-horizontal" name="topicCreate" url="[controller:'topic',action:'save']" >
+                <g:form class="form-horizontal" name="topicCreate" url="[controller: 'topic', action: 'save']">
 
                     <div class="form-group">
                         <label class="control-label col-xs-4" for="email">Name:</label>
@@ -24,22 +24,25 @@
 
                         <div class="col-xs-8">
                             <select class="pull-right form-control" id="sel1" name="visibility">
-                            <option>Public</option>
-                            <option>Private</option>
-                            <option>Global</option>
-                            <option>Mid</option>
-                        </select></div>
+                                <option>Public</option>
+                                <option>Private</option>
+                                <option>Global</option>
+                                <option>Mid</option>
+                            </select></div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-xs-4"></div>
 
                         <div class="col-xs-4">
-                            <input type="submit" class="form-control btn btn-default active" placeholder="Save" style="color:black;border:solid black;border-radius:7px">
+                            <input type="submit" class="form-control btn btn-default active" placeholder="Save"
+                                   style="color:black;border:solid black;border-radius:7px"/>
+
                         </div>
 
                         <div class="col-xs-4">
-                            <input type="Login" class="form-control btn btn-default active" id="submit" placeholder="Cancel" style="color:black;border:solid black;border-radius:7px">
+                            <input type="Login" class="form-control btn btn-default active" id="submit"
+                                   placeholder="Cancel" style="color:black;border:solid black;border-radius:7px">
                         </div>
                     </div>
 

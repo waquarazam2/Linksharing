@@ -26,13 +26,10 @@
 
                     <div class="form-group">
                         <div class="col-xs-2 "></div>
-                        <label class="col-xs-2" for="sel1">Topic:</label>
-                        <div class="col-xs-8"><select class="pull-right form-control" id="sel1">
-                            <option>Public</option>
-                            <option>Private</option>
-                            <option>Global</option>
-                            <option>Mid</option>
-                        </select></div>
+                        <label class="col-xs-2" >Topic:</label>
+                        <div class="col-xs-8">
+                            <g:select class="btn dropdown-toggle" data-toggle="dropdown" name="topicName" id="doctopic" style="width:200px; " from="${subscribedTopics}"/>
+                        </div>
                     </div>
 
                     <div class="form-group">

@@ -1,9 +1,13 @@
 package linksharing
 
+import org.springframework.beans.factory.annotation.Autowired
+
 class UserController {
 
     def index() {
-        render(view: "index")
+        List subscribedTopics=session.user.subscribedTopics
+        List<TopicVO> trendingTopics=Topic.getTrendingTopics()
+        render(view: "index",model: [trendingTopics:trendingTopics,subscribedTopics:subscribedTopics])
 
     }
 
@@ -17,7 +21,11 @@ class UserController {
         }
     }
 
-    def saveUser() {
+//    def myBeanConstructor2
+    @Autowired
+    CustomBean myBeanConstructor1
 
+    def saveUser() {
+       render userService.saveService()
     }
 }

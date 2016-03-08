@@ -30,8 +30,7 @@
                         <div class="col-xs-4"></div>
 
                         <div class="col-xs-4">
-                            <input type="Login" class="form-control btn btn-default active" id="submit"
-                                   placeholder="Invite"
+                            <input type="Login" class="form-control btn btn-default active" placeholder="Invite"
                                    style="color:black;border:solid black;border-radius:7px">
                         </div>
 
@@ -49,3 +48,5 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
+    </div>
+</div>

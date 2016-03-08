@@ -12,7 +12,7 @@ class User {
     Date dateCreated
     Date lastUpdated
 
-    static transients = ["name"]
+    static transients = ["name","subscribedTopics"]
     transient confirmPassword
 
     static mapping = {
@@ -24,6 +24,11 @@ class User {
         firstName + " " + lastName
     }
 
+    List<Topic> getSubscribedTopics(){
+        List<Subscription> subscriptions=Subscription.findAllWhere(user: this)
+        return  subscriptions*.topic
+
+    }
 
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
     static constraints = {

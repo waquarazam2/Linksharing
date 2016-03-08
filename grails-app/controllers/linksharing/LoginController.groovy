@@ -17,7 +17,7 @@ class LoginController {
         if(user){
             if(user.active==true){
                 session.user=user
-                forward(controller: 'login',action: 'index')
+                redirect(controller: 'login',action: 'index')
             }
             else{
                 flash.error='Your account is not active'
@@ -25,6 +25,7 @@ class LoginController {
         }
         else{
                 flash.error='User not found'
+                render flash.error
         }
     }
 

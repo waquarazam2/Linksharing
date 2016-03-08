@@ -2,7 +2,12 @@ package linksharing
 
 class TopicController {
 
-    def index() {}
+    def index() {
+        Topic topic=Topic.get(params.id)
+        render(view:'index',model: [users:topic.getSubscribedUsers(),topicName:topic.name])
+    }
+
+
 
     def show(ResourceSearchCO co) {
         Topic topic = Topic.read(co.topicId)
