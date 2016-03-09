@@ -27,7 +27,7 @@
 
                 </div>
                 <br><br><br><br>
-                <hr style="border-width:3px;padding:0px;border-color:black">
+
             </g:if>
             <g:else>
                 <

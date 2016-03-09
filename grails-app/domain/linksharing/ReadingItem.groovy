@@ -22,4 +22,21 @@ class ReadingItem {
           return   false
         }
     }
+
+    static List getReadingItems(User user) {
+
+        List list=ReadingItem.createCriteria().list{
+            projections{
+                createAlias('resource','r')
+                property('id')
+                property('r.description')
+                property('r.url')
+                property('r.createdBy')
+                property('r.id')
+            }
+            eq('user',user)
+
+        }
+        return list
+    }
 }

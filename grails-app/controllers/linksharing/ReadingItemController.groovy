@@ -6,7 +6,7 @@ class ReadingItemController {
 
    def "changeIsRead"(long id,boolean isRead){
        if(ReadingItem.changeIsRead(id,isRead)){
-           render 'success'
+           redirect(controller: 'user',action: 'index')
        }
 
        else{
