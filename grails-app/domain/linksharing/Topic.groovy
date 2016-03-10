@@ -60,5 +60,12 @@ class Topic {
         return Subscription.findAllByTopic(this)*.user
     }
 
+    boolean isPublic(){
+        return this.visibility==Visibility.PUBLIC
+    }
+
+    boolean canViewedBy(User user){
+        user.admin || this.isPublic() || user.subscribedTopics.contains(this)
+    }
 
 }

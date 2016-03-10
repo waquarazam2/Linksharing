@@ -3,18 +3,18 @@
     <div class="panel panel-default">
         <div class="panel-body" >
             <div class="col-xs-4">
-                <a href="#" style="font-size:28px">Link Sharing</a>
+                <g:link url="[controller:'user',action:'index']" href="#" style="font-size:28px">Link Sharing</g:link>
             </div>
 
             <div class="col-xs-3">
-                <div class="panel border" id="search">
-                    <div class="glyphicon glyphicon-search" ></div>
-
-                    <div class="badge pull-right">
-                        <div class="glyphicon glyphicon-remove"></div>
+                <g:form controller="resource" action="search" class="navbar-form">
+                    <div class="input-group">
+                        <g:textField type="text" class="form-control" placeholder="Search" name="q" id="srch-term"/>
+                        <div class="input-group-btn">
+                            <g:submitButton name="searchsubmit" class="btn btn-default" type="submit" value="Search"/>
+                        </div>
                     </div>
-                    <input type="text" placeholder="search" style="border:none">
-                </div>
+                </g:form>
             </div>
 
             <div class="col-xs-5">

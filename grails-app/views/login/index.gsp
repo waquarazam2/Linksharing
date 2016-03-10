@@ -9,7 +9,7 @@
 <div class="col-xs-1"></div>
 <div class="col-xs-6">
     <g:render template="/shared/recentShares"/>
-    <g:render template="/shared/topPosts"/>
+   <ls:topPosts/>
 </div>
 
 <div class="col-xs-4">

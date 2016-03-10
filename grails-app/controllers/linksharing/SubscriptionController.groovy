@@ -1,41 +1,45 @@
 package linksharing
+
 class SubscriptionController {
 
     def index() {}
 
-    def delete(){
-        Subscription subscription=Subscription.load(params.id)
-        if(subscription){
-            subscription.delete()
-            render 'success'
-        }else{
-            render 'not found'
+    def delete(long id) {
+        Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
+        if (subscription) {
+            subscription.delete(flush: true)
+            flash.message = 'deleted successfully'
+        } else {
+            flash.error = 'unable to delete'
         }
+        println flash.message
+        redirect(controller: 'user', action: 'index')
     }
 
-    def save(long id){
-        Topic topic=Topic.get(id)
-        Subscription subscription =new Subscription(topic: topic,user:session.user)
+    def save(long id) {
 
-        if(subscription.save()){
-            render 'success'
+        Topic topic = Topic.get(id)
+        Subscription subscription = new Subscription(topic: topic, user: session.user)
+
+        if (subscription.save(flush: true)) {
+            flash.message = 'saved successfullyt'
+        } else {
+            flash.error = 'unable to save'
         }
 
-        else{
-            render subscription.errors
-        }
+        redirect(controller: 'user', action: 'index')
     }
 
-    def update(long id,String seriousness){
-        Subscription subscription=Subscription.get(id)
-        if(subscription && Seriousness.convertToEnum(seriousness)){
-            subscription.seriousness=Seriousness.convertToEnum(seriousness)
-            if(subscription.save(flush: true)){
+    def update(long id, String seriousness) {
+        Subscription subscription = Subscription.get(id)
+        if (subscription && Seriousness.convertToEnum(seriousness)) {
+            subscription.seriousness = Seriousness.convertToEnum(seriousness)
+            if (subscription.save(flush: true)) {
                 render 'success'
-            }else{
+            } else {
                 render 'errors'
             }
-        }else{
+        } else {
             render 'subscription or seriousness not found'
         }
     }

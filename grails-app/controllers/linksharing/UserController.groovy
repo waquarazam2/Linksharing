@@ -6,8 +6,9 @@ class UserController {
 
     def index() {
         List subscribedTopics=session.user.subscribedTopics
-        List<TopicVO> trendingTopics=Topic.getTrendingTopics()
-        render(view: "index",model: [trendingTopics:trendingTopics,subscribedTopics:subscribedTopics])
+        List readingItems=ReadingItem.getReadingItems(session.user)
+        //List<TopicVO> trendingTopics=Topic.getTrendingTopics()
+        render(view: "index",model: [subscribedTopics:subscribedTopics,readingItems:readingItems])
 
     }
 

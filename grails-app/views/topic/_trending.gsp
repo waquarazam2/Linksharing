@@ -8,22 +8,31 @@
         <div class="panel-body">
             <g:if test="${topicVO.createdBy != session.user}">
                 <div class="col-xs-2">
-                    <span class="glyphicon glyphicon-user" style="font-size:60px;border:solid black;"></span>
+                    <span class="glyphicon glyphicon-user" style="font-size:50px;border:solid black;"></span>
                 </div>
 
                 <div class="col-xs-10 pull-left">
-                    <g:link value="topic" url="[controller:'topic',action:'index',params:[id:topicVO.id]]"  class="col-xs-8"
-                           style="text-decoration:underline">${topicVO.topicName}
+                    <g:link value="topic" url="[controller: 'topic', action: 'index', params: [id: topicVO.id]]"
+                            class="col-xs-8"
+                            style="text-decoration:underline">${topicVO.topicName}
 
                     </g:link><br><br>
-                    <span class="col-xs-4 text-muted">@${topicVO.createdBy}</span>
-                    <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
-                    <span class="col-xs-4" style="padding-left:1px">Topics</span><br>
-                    <span class="col-xs-4" style="color:blue;"><a href="#"
-                                                                  style="text-decoration:underline">Unsubscribe</a>
-                    </span>
-                    <span class="col-xs-4" style="color:blue;padding-left:1px">50</span>
-                    <span class="col-xs-4" style="color:blue;padding-left:1px">50</span>
+
+                    <div class="row">
+                        <span class="col-xs-6 text-muted">@${topicVO.createdBy}</span>
+                        <span class="col-xs-3" style="padding-left:1px"><small>Subscriptions</small></span>
+                        <span class="col-xs-3" style="padding-left:1px"><small>Posts</small></span><br>
+                    </div>
+
+                    <div class="row">
+                        <span class="col-xs-6" style="color:blue;"><small><ls:showSubscribe
+                                topicId="${topicVO.id}"/></small>
+                        </span>
+                        <span class="col-xs-3" style="color:blue;padding-left:1px"><ls:subscriptionCount
+                                topicId="${topicVO.id}"/></span>
+                        <span class="col-xs-3" style="color:blue;padding-left:1px"><ls:resourceCount
+                                topicId="${topicVO.id}"/></span>
+                    </div>
 
                 </div>
                 <br><br><br><br>

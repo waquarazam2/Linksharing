@@ -51,4 +51,22 @@ class User {
     String toString() {
         return getName()
     }
+
+    boolean canDeleteResource(Resource resource){
+        return resource.createdBy==this
+    }
+
+    int getScore(Resource resource){
+       ResourceRating resourceRating= ResourceRating.findByUserAndResource(this,resource)
+       int score=1
+        if(resourceRating){
+            score=resourceRating.score
+        }
+        return score
+    }
+
+    boolean isSubscribed(long topicId)
+    {
+        return Subscription.findByUserAndTopic(this,Topic.read(topicId))
+    }
 }

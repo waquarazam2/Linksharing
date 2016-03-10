@@ -4,13 +4,17 @@ class ReadingItemController {
 
     def index() { }
 
-   def "changeIsRead"(long id,boolean isRead){
+   def changeIsRead(long id,boolean isRead){
        if(ReadingItem.changeIsRead(id,isRead)){
-           redirect(controller: 'user',action: 'index')
+           redirect(url: request.getHeader('referer'))
        }
 
        else{
             render 'error'
        }
    }
+
+    def saveRating(){
+        
+    }
 }

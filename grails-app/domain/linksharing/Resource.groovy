@@ -19,7 +19,11 @@ abstract class Resource {
            eq('id',co.topicId)
        }
        if(co.visibility){
-           eq('visibility',co.visibility)
+           eq('topic.visibility',co.visibility)
+       }
+
+       if(co.q){
+           like('description',"%${co.q}%")
        }
    }
  }
@@ -34,5 +38,33 @@ abstract class Resource {
         }
 
         return new RatingInfoVO(totalVotes: result[0],totalScore: result[1],averageScore: result[2])
+    }
+
+    static topPosts() {
+        List resources=ResourceRating.createCriteria().list(max:5){
+            projections{
+                groupProperty('resource')
+                avg('score','avgScore')
+            }
+            'resource'{
+                property('id')
+                property('createdBy')
+                property('description')
+            }
+            order('avgScore','desc')
+        }
+        return resources
+    }
+
+    String which(){
+       String result='document'
+        if(this instanceof LinkResource){
+            result='link'
+        }
+        return result
+    }
+
+    boolean canViewedBy(User user){
+        return this.topic.canViewedBy(user)
     }
 }

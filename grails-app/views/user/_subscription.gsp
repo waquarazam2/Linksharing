@@ -19,10 +19,10 @@
         <span class="col-xs-4" style="padding-left:1px">Subscriptions</span>
         <span class="col-xs-2" style="padding-left:1px">Topics</span><br>
 
-        <span class="col-xs-6" style="color:blue;"><a href="#" style="text-decoration:underline">Unsubscribe</a>
+        <span class="col-xs-6" style="color:blue;"><small><ls:showSubscribe topicId="${subscription.id}"/> </small>
         </span>
-        <span class="col-xs-4" style="color:blue;padding-left:1px">${subscription.id}</span>
-        <span class="col-xs-2" style="color:blue;padding-left:1px">50</span>
+        <span class="col-xs-4" style="color:blue;padding-left:1px"><ls:subscriptionCount topicId="${subscription.id}"/> </span>
+        <span class="col-xs-2" style="color:blue;padding-left:1px"><ls:resourceCount topicId="${subscription.id}" /></span>
         </div>
 
 
