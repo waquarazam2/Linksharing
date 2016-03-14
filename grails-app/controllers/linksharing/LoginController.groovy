@@ -21,6 +21,7 @@ class LoginController {
             }
             else{
                 flash.error='Your account is not active'
+                render flash.error
             }
         }
         else{

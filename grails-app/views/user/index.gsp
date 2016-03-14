@@ -9,6 +9,7 @@
 <div class="col-xs-1"></div>
 
 <div class="col-xs-4">
+    <g:render template="profile"/>
     <ls:trendingTopics/>
 </div>
 

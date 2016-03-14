@@ -14,12 +14,12 @@ class ApplicationFilters {
 
             }
         }
-        loginCheck(controller: '*', action: '*', controllerExclude: 'login') {
-            before = {
-                if (!session.user) {
-                    redirect(controller: 'login', action: 'index')
-                }
-            }
-        }
+//        loginCheck(controller: '*', action: '*', controllerExclude: 'login') {
+//            before = {
+//                if (!session.user) {
+//                    redirect(controller: 'login', action: 'index')
+//                }
+//            }
+//        }
     }
 }

@@ -7,6 +7,7 @@ class User {
     String firstName
     String lastName
     byte[] photo
+    String photoType
     Boolean admin
     Boolean active
     Date dateCreated
@@ -53,7 +54,7 @@ class User {
     }
 
     boolean canDeleteResource(Resource resource){
-        return resource.createdBy==this
+        return (resource?.createdBy && resource?.createdBy==this)
     }
 
     int getScore(Resource resource){
@@ -69,4 +70,5 @@ class User {
     {
         return Subscription.findByUserAndTopic(this,Topic.read(topicId))
     }
+
 }

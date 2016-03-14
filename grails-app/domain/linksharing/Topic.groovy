@@ -65,7 +65,7 @@ class Topic {
     }
 
     boolean canViewedBy(User user){
-        user.admin || this.isPublic() || user.subscribedTopics.contains(this)
+        user?.admin || this.isPublic() || user?.subscribedTopics?.contains(this)
     }
 
 }

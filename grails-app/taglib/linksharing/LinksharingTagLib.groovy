@@ -31,6 +31,11 @@ class LinksharingTagLib {
         out << render(template: '/shared/topPosts', model: [topPosts: topPosts])
     }
 
+    def recentShares = {
+        List recentShares = Resource.recentShares()
+        out << render(template: '/shared/recentShares', model: [recentShares: recentShares])
+    }
+
     def canDeleteResouce = { attr, body ->
         User user = session.user
         Resource resource = attr.resource
@@ -40,25 +45,40 @@ class LinksharingTagLib {
 
     def showSubscribe = { attr, body ->
         User user = session.user
-        (user.isSubscribed(attr.topicId)) ? out << g.link(controller: "subscription", action: "delete", id: "${attr.topicId}", "Unsubscribe") : out << g.link(controller: "subscription", action: "save", id: "${attr.topicId}", "Subscribe")
+        if (user) {
+            (user.isSubscribed(attr.topicId)) ? out << g.remoteLink(controller: "subscription", action: "delete",update:'message', id: "${attr.topicId}", "Unsubscribe") : out << g.remoteLink(controller: "subscription", action: "save",update: 'message',id: "${attr.topicId}", "Subscribe")
+        }
     }
 
     def subscriptionCount = { attr, body ->
-        int subscription;
-        if (attr.topicId) {
-            subscription = Subscription.countByTopic(Topic.read(attr.topicId))
-        } else if (attr.user) {
-            subscription = Subscription.countByUser(session.user)
-        } else if (attr.topicId && attr.user) {
-            subscription = Subscription.countByUserAndTopic(session.user, Topic.read(attr.topicId))
+        if (session.user) {
+            int subscription;
+            if (attr.topicId) {
+                subscription = Subscription.countByTopic(Topic.read(attr.topicId))
+            } else if (attr.user) {
+                subscription = Subscription.countByUser(session.user)
+            } else if (attr.topicId && attr.user) {
+                subscription = Subscription.countByUserAndTopic(session.user, Topic.read(attr.topicId))
+            }
+            out << subscription
         }
-        out << subscription
     }
     def resourceCount = { attr, body ->
         out << Resource.countByTopic(Topic.read(attr.topicId))
     }
     def topicCount = { attr, body ->
-        out << Topic.countByCreatedBy(attr.user)
+        if (session.user) {
+            out << Topic.countByCreatedBy(attr.user)
+        }
+    }
+
+    def userImage = { attrs, body ->
+        out << "<img src=\"/images/${attrs.id}.jpg\" width=\"65px\" height=\"65px\"/>"
+    }
+
+    def postCount = { attrs, body ->
+        out << Subscription.countByUser(attrs.user)
+
     }
 
 

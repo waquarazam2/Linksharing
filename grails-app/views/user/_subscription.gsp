@@ -10,7 +10,9 @@
         <div class="panel-body">
 
         <div class="col-xs-2">
-        %{--<g:include controller="user" action="userImage" params='[username: "${subscription[2]}"]'/>--}%
+        <img src="${g.createLink(controller: 'user', action: 'image', params:[id:subscription.createdBy.id])}" style="width: 65px;height: 65px;"/>
+
+    %{--<g:include controller="user" action="userImage" params='[username: "${subscription[2]}"]'/>--}%
         </div>
 
         <div class="col-xs-10 pull-left"><a href="#" class="col-xs-10"

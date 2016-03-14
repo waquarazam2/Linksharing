@@ -1,5 +1,7 @@
 package linksharing
 
+import grails.converters.JSON
+
 class SubscriptionController {
 
     def index() {}
@@ -8,12 +10,13 @@ class SubscriptionController {
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
         if (subscription) {
             subscription.delete(flush: true)
-            flash.message = 'deleted successfully'
+                    render([message:'deleted successfully'] as JSON)
         } else {
-            flash.error = 'unable to delete'
+         render([error:'unable to delete'] as JSON)
         }
-        println flash.message
-        redirect(controller: 'user', action: 'index')
+
+
+      //  redirect(controller: 'user', action: 'index')
     }
 
     def save(long id) {

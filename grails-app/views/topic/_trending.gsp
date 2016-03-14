@@ -8,7 +8,8 @@
         <div class="panel-body">
             <g:if test="${topicVO.createdBy != session.user}">
                 <div class="col-xs-2">
-                    <span class="glyphicon glyphicon-user" style="font-size:50px;border:solid black;"></span>
+                    <img src="${g.createLink(controller: 'user', action: 'image', params:[id:topicVO?.createdBy?.id])}" height="65px" width="65px"/>
+                    %{--<g:include controller="user" action="image" params="[id:topicVO?.createdBy?.id]"/>--}%
                 </div>
 
                 <div class="col-xs-10 pull-left">
@@ -27,6 +28,7 @@
                     <div class="row">
                         <span class="col-xs-6" style="color:blue;"><small><ls:showSubscribe
                                 topicId="${topicVO.id}"/></small>
+                            %{--<div id="message"></div>--}%
                         </span>
                         <span class="col-xs-3" style="color:blue;padding-left:1px"><ls:subscriptionCount
                                 topicId="${topicVO.id}"/></span>

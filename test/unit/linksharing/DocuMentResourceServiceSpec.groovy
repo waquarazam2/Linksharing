@@ -1,14 +1,13 @@
 package linksharing
 
-import grails.plugin.mail.MailService
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(MailService)
-class MailServiceSpec extends Specification {
+@TestFor(DocuMentResourceService)
+class DocuMentResourceServiceSpec extends Specification {
 
     def setup() {
     }

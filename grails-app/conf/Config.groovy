@@ -132,3 +132,5 @@ grails {
                  "mail.smtp.socketFactory.fallback":"false"]
     }
 }
+
+linksharing.documents.folderPath = "${userHome}/www/linksharing"

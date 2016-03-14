@@ -11,15 +11,19 @@
         <div class="panel-body">
 
             <div class="col-xs-4">
-                <span class="glyphicon glyphicon-user" style="font-size:60px;border:solid black;"></span>
+                <img src="${g.createLink(controller: 'user', action: 'image', params: [id: user.id])}" width="65px"
+                     height="65px"/>
+
             </div>
 
             <div class="col-xs-8">${user.firstName}<span class="text-muted"><br>@${user.userName}<br>
                 <span class="col-xs-6" style="padding-left:1px">Subscriptions</span><span class="col-xs-6"
-                                                                                          style="padding-left:1px">Topics</span><br>
+                                                                                          style="padding-left:1px">Posts</span><br>
             </span>
-                <span class="col-xs-6" style="color:blue;padding-left:1px">50</span><span class="col-xs-6"
-                                                                                          style="color:blue;padding-left:1px">50</span>
+                <span class="col-xs-6" style="color:blue;padding-left:1px"><ls:subscriptionCount
+                        user="user"/></span><span class="col-xs-6"
+                                                  style="color:blue;padding-left:1px"><ls:postCount
+                        user="${user}"/></span>
 
             </div>
         </div>

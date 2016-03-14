@@ -3,7 +3,7 @@ package linksharing
 class ResourceController {
 
     def index(long id) {
-
+        render(view:'show',model: [resource:Resource.get(id)])
     }
 
     def delete(){
@@ -40,8 +40,9 @@ class ResourceController {
 
     def show(long id)
     {
+        println "999999999999999999999999999999999999999999    "+id
         Resource resource = Resource.get(id)
-        if(resource.canViewedBy(session.user)) {
+        if(Resource.canViewedBy(session.user,resource)) {
             List trendingTopics = Topic.getTrendingTopics()
             render(view: "show", model: [resource: resource, trendingTopics: trendingTopics])
         }

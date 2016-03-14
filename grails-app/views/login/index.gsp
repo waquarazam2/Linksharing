@@ -8,7 +8,7 @@
 <body>
 <div class="col-xs-1"></div>
 <div class="col-xs-6">
-    <g:render template="/shared/recentShares"/>
+    <ls:recentShares/>
    <ls:topPosts/>
 </div>
 
