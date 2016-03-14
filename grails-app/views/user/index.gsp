@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Login</title>
+    <title>Home</title>
 </head>
 
 <body>

@@ -4,21 +4,22 @@ class LinksharingTagLib {
     static namespace = "ls"
     def markAsRead = { attrs, body ->
         User user = session.user
-        ReadingItem readingItem = ReadingItem.findById(attrs.id)
+        ReadingItem readingItem = ReadingItem.findById((attrs.id))
+        flash.query = attrs.query
         if (user && readingItem) {
+            def id = readingItem.id
             def isRead = readingItem.isRead
             if (isRead) {
-                out << g.link(controller: "readingItem", action: "changeIsRead", params: [id: attrs.id, isRead: false], "style": "font-size:10px") {
-                    "Mark as Unread "
-                }
 
+                out << "<span class='unread' data-id=${attrs.id} style='color:blue' > Mark as Unread </span>"
             } else {
-                out << g.link(controller: "readingItem", action: "changeIsRead", params: [id: attrs.id, isRead: true], "style": "font-size:10px") {
-                    "Mark as Read "
-                }
+
+                out << "<span class='read' data-id=${attrs.id} style='color:blue' > Mark as Read </span>"
+
 
             }
         }
+
     }
 
     def trendingTopics = {

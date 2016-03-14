@@ -1,16 +1,38 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: waquar
-  Date: 14/3/16
-  Time: 10:24 AM
---%>
-
-<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+    <meta name="layout" content="main"/>
+    <title>500 Page Not Found</title>
+
 </head>
+
 <body>
+<div id="nor">
+    <div class="row">
+        <div class="col-xs-12 CENTER-BLOCK">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <img class="col-xs-8" src="/images/500.jpg"/>
+
+        <div class="col-xs-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+
+        </div>
+
+        <div class="col-xs-6">
+            <g:link controller="login" action="index" style="text-decoration: none">Click to Go Back and Try Again</g:link>
+        </div>
+    </div>
+</div>
+
 
 </body>
+
 </html>

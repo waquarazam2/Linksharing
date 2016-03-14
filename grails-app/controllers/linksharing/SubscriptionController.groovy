@@ -10,9 +10,9 @@ class SubscriptionController {
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
         if (subscription) {
             subscription.delete(flush: true)
-                    render([message:'deleted successfully'] as JSON)
+                    render([message:'deleted successfully',status:true] as JSON)
         } else {
-         render([error:'unable to delete'] as JSON)
+         render([error:'unable to delete',status: true] as JSON)
         }
 
 

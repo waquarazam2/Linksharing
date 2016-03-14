@@ -3,7 +3,10 @@ package linksharing
 class UtilController {
 
     def index() {
-        log.info('Hello World')
-        log.info(params)
+        render view: 'pageNotFound'
+    }
+    def error()
+    {
+        render view: 'error'
     }
 }

@@ -13,6 +13,7 @@
     <asset:stylesheet href="application.css"/>
     <asset:javascript src="application.js"/>
     <asset:stylesheet src="bootstrap.min.css"/>
+    <asset:javascript src="custom.js"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <style>

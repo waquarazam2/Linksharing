@@ -16,10 +16,10 @@ class ReadingItem {
 
     static boolean changeIsRead(long  id,boolean isRead) {
         if(ReadingItem.executeUpdate("update ReadingItem set isRead=:isRead where id=:id",[isRead:isRead,id:id])){
-          return true
+           true
         }
         else{
-          return   false
+            false
         }
     }
 
