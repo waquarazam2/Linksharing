@@ -6,16 +6,17 @@
 </head>
 
 <body>
-<div class="col-xs-1"></div>
+<div class="container">
+
 <div class="col-xs-6">
     <ls:recentShares/>
    <ls:topPosts/>
 </div>
 
-<div class="col-xs-4">
+<div class="col-xs-6">
     <g:render template="login"/>
     <g:render template="register"/>
 </div>
-<div class="col-xs-1"></div>
+</div>
 </body>
 </html>

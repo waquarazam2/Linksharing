@@ -1,5 +1,6 @@
 <script>
 
+
     $(document).on("click", ".read", function () {
         var link = $(this)
         var id = $(this).attr('data-id')
@@ -11,8 +12,7 @@
             data: {id: id, isRead: true},
 
             success: function (data) {
-                 $(link).html(data.message);
-                  window.location.reload();
+                $(link).replaceWith(data.message)
             },
             error: function (xhr) {
                 alert(xhr.responseText);
@@ -20,6 +20,7 @@
         });
     });
     $(document).on("click", ".unread", function () {
+        debugger;
         var link = $(this)
         var id = $(this).attr('data-id')
         $.ajax({
@@ -28,15 +29,13 @@
             dataType: 'json',
             data: {id: id, isRead: false},
             success: function (data) {
-                 $(link).html(data.message);
-                 window.location.reload();
+                $(link).replaceWith(data.message)
             },
             error: function (xhr) {
                 alert(xhr.responseText);
             }
         });
     });
-
 </script>
 
 <div class="panel panel-default">
@@ -67,7 +66,8 @@
                 site</a></div>
 
                 <div class="col-xs-3">
-                    <ls:markAsRead id="${item[0]}"/>
+                   <small> <ls:markAsRead id="${item[0]}"/></small>
+                    <div class="modal"></div>
                 </div>
 
                 <div class="col-xs-2"><small><g:link value="view"
@@ -78,3 +78,4 @@
         </div>
     </g:each>
 </div>
+

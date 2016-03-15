@@ -4,13 +4,13 @@ class LinksharingTagLib {
     static namespace = "ls"
     def markAsRead = { attrs, body ->
         User user = session.user
-        ReadingItem readingItem = ReadingItem.findById((attrs.id))
+        Long itemId = attrs.id as Long
+        ReadingItem readingItem = ReadingItem.findById(itemId)
         flash.query = attrs.query
         if (user && readingItem) {
             def id = readingItem.id
             def isRead = readingItem.isRead
             if (isRead) {
-
                 out << "<span class='unread' data-id=${attrs.id} style='color:blue' > Mark as Unread </span>"
             } else {
 
@@ -47,7 +47,7 @@ class LinksharingTagLib {
     def showSubscribe = { attr, body ->
         User user = session.user
         if (user) {
-            (user.isSubscribed(attr.topicId)) ? out << g.remoteLink(controller: "subscription", action: "delete",update:'message', id: "${attr.topicId}", "Unsubscribe") : out << g.remoteLink(controller: "subscription", action: "save",update: 'message',id: "${attr.topicId}", "Subscribe")
+            (user.isSubscribed(attr.topicId)) ? out << g.remoteLink(controller: "subscription", action: "delete", update: 'message', id: "${attr.topicId}", "Unsubscribe") : out << g.remoteLink(controller: "subscription", action: "save", update: 'message', id: "${attr.topicId}", "Subscribe")
         }
     }
 
@@ -79,6 +79,32 @@ class LinksharingTagLib {
 
     def postCount = { attrs, body ->
         out << Subscription.countByUser(attrs.user)
+
+    }
+
+    def canUpdateTopic = { attrs, body ->
+        User user = session.user
+        Topic topic = Topic.get(attrs.topicId)
+        if (user.admin || user==topic.createdBy) {
+            out << "<span class='col-xs-2'>"
+            out << g.select(name: 'visibility', class:'visibility',from: ['PUBLIC','PRIVATE'], value: "${topic.visibility}",selected:"${topic.visibility}")
+
+            out << "</span><br>"
+            out << "<span class='col-xs-2'>"
+            out << "<a href='#' class='seditTopicInline' id='sedit-${attrs.topicId}' style='cursor: pointer;'><div class='glyphicon glyphicon-edit'></div></a></span>"
+
+            out << "<span class='col-xs-2'><a href='#' id='sdel-${attrs.topicId}' class='sdeleteTopic' style='cursor: pointer;'><div class='glyphicon glyphicon-trash'></div></a>"
+
+            out << "</span><br>"
+        }
+
+    }
+
+    def showSeriousness = { attrs, body ->
+        User user=session.user
+        Subscription subscription=user.getSubscription(attrs.topicId)
+
+        out << g.select(name: 'seriousness',class:'seriousness',from: ['SERIOUS', 'VERY SERIOUS', 'CASUAL'], value: "${subscription.seriousness}",selected:"${subscription.seriousness}")
 
     }
 

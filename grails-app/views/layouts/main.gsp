@@ -64,7 +64,6 @@
         background: #ffffff;
     }
 
-
     </style>
     <g:layoutHead/>
 </head>

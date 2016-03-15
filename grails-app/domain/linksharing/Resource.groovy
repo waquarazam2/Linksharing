@@ -8,7 +8,6 @@ abstract class Resource {
     Date lastUpdated
 
     static transients = ['ratingInfo']
-
     static hasMany = [ratings: ResourceRating, readingItems: ReadingItem]
     static belongsTo = [topic: Topic]
     static constraints = {

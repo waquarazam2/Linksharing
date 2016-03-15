@@ -6,9 +6,9 @@
 </head>
 
 <body>
-<div class="col-xs-1"></div>
+<div class="container">
 
-<div class="col-xs-4">
+<div class="col-xs-6">
     <g:render template="profile"/>
     <ls:trendingTopics/>
 </div>
@@ -18,7 +18,7 @@
     <g:render template="subscription"/>
 
 </div>
+</div>
 
-<div class="col-xs-1"></div>
 </body>
 </html>

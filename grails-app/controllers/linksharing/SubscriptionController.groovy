@@ -8,7 +8,7 @@ class SubscriptionController {
 
     def delete(long id) {
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
-        if (subscription) {
+        if (subscription && (subscription.topic.createdBy != session.user)) {
             subscription.delete(flush: true)
                     render([message:'deleted successfully',status:true] as JSON)
         } else {
@@ -25,12 +25,12 @@ class SubscriptionController {
         Subscription subscription = new Subscription(topic: topic, user: session.user)
 
         if (subscription.save(flush: true)) {
-            flash.message = 'saved successfullyt'
+            render([message:'saved successfully']) as JSON
         } else {
-            flash.error = 'unable to save'
+            render([error:'unable to save']) as JSON
         }
 
-        redirect(controller: 'user', action: 'index')
+
     }
 
     def update(long id, String seriousness) {
@@ -38,12 +38,12 @@ class SubscriptionController {
         if (subscription && Seriousness.convertToEnum(seriousness)) {
             subscription.seriousness = Seriousness.convertToEnum(seriousness)
             if (subscription.save(flush: true)) {
-                render 'success'
+                render([message:'success']) as JSON
             } else {
-                render 'errors'
+                render([error:'errors']) as JSON
             }
         } else {
-            render 'subscription or seriousness not found'
+            render([error:'subscription or seriousness not found']) as JSON
         }
     }
 }

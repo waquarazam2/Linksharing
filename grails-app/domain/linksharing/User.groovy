@@ -71,4 +71,12 @@ class User {
         return Subscription.findByUserAndTopic(this,Topic.read(topicId))
     }
 
+    Subscription getSubscription(long topicId){
+        Subscription.findByUserAndTopic(this,Topic.load(topicId))
+    }
+
+//    boolean  equals(User user1,User user2){
+//       user1==user2
+//    }
+
 }

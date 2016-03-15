@@ -55,6 +55,28 @@ def assetResourceLocator
         out.close()
     }
 
+
+    def isUsernameValid(String username) {
+        int numUser = 0
+        numUser = User.countByUsername(username)
+        if (numUser >= 1)
+            render false
+        else
+            render true
+    }
+
+    def isEmailIdValid(String emailId) {
+        int num = 0;
+        num = User.countByEmailId(emailId)
+        if (num >= 1)
+            render false
+        else
+            render true
+
+    }
+
+
+
 }
 
 

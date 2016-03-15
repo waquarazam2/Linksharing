@@ -16,4 +16,5 @@ class Subscription {
         seriousness(nullable: false)
         topic(unique: ['user'])
     }
+
 }
