@@ -7,26 +7,26 @@ class UserController {
     def userService
 
     def index() {
-        List subscribedTopics=session.user.subscribedTopics
-        List readingItems=ReadingItem.getReadingItems(session.user)
+        List subscribedTopics = session.user.subscribedTopics
+        List readingItems = ReadingItem.getReadingItems(session.user)
         //List<TopicVO> trendingTopics=Topic.getTrendingTopics()
-        render(view: "index",model: [subscribedTopics:subscribedTopics,readingItems:readingItems])
+        render(view: "index", model: [subscribedTopics: subscribedTopics, readingItems: readingItems])
 
     }
 
     def register(UserCO co) {
-        def f=request.getFile('photo')
+        def f = request.getFile('photo')
 
 
         log.info("File uploaded: $user.avatarType")
-        User user = new User(email: co.email, userName: co.userName, password: co.password, confirmPassword: co.confirmPassword, firstName: co.firstName, lastName:co.lastName, active: true, admin:false)
+        User user = new User(email: co.email, userName: co.userName, password: co.password, confirmPassword: co.confirmPassword, firstName: co.firstName, lastName: co.lastName, active: true, admin: false)
         user.photo = f.bytes
         user.photoType = f.contentType
         if (user.save()) {
             render 'success'
         } else {
-            flash.message =user.errors
-            flash.error ='User not registered'
+            flash.message = user.errors
+            flash.error = 'User not registered'
             render user.errors
         }
     }
@@ -36,9 +36,9 @@ class UserController {
     CustomBean myBeanConstructor1
 
     def saveUser() {
-       render userService.saveService()
+        render userService.saveService()
     }
-def assetResourceLocator
+    def assetResourceLocator
 
     def image(Long id) {
         User user = User.get(id)
@@ -74,9 +74,24 @@ def assetResourceLocator
             render true
 
     }
+    def customMailService
 
 
-
+    def forgotPassword(String email) {
+        User user = User.findByEmail(email)
+        if (user && user.active) {
+            int newPassword = RandomPasswordGenerator.generate()
+            EmailDTO emailDTO = new EmailDTO(to: [email], subject: "Account Recovery", view: "/user/_password", model: [userName: user.name, newPassword: newPassword, serverUrl: grailsApplication.config.grails.serverURL])
+            customMailService.sendMail(emailDTO)
+            user.password = newPassword
+            user.confirmPassword = newPassword
+            user.save(flush: true)
+            flash.message = "Success"
+        } else {
+            flash.error = "Email not for a valid user"
+        }
+        redirect(controller: "login", action: "index")
+    }
 }
 
 

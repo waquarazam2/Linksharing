@@ -6,12 +6,17 @@ import grails.transaction.Transactional
 class CustomMailService {
     def mailService
 
-    def sendMail() {
-        mailService.sendMail{
-            to 'waquar.azam@tothenew.com'
-            subject 'test mail'
-            body 'Hi \n How arer ye'
-        }
+    def sendMail(EmailDTO emailDTO) {
+        mailService.sendMail {
+            to emailDTO.to
+            subject emailDTO.subject
+            if (emailDTO.content) {
+                body emailDTO.content
+            }
+            else {
+                body(view: emailDTO.view, model: emailDTO.model)
+            }
 
+        }
     }
 }
