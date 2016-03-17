@@ -40,6 +40,7 @@ class User {
         photo(nullable: true)
         admin(nullable: true)
         active(nullable: true)
+        photoType(nullable: true)
         confirmPassword(bindable: true, validator: { val, obj ->
             if (obj.id) {
                 return val == obj.password
