@@ -6,18 +6,18 @@
     <form role="form" class="form-horizontal">
         <div class="form-group">
             <div class="col-xs-5"><label class="control-label">First Name<sup>*</sup></label></div>
-            <div class="col-xs-7"><input type="text" class="form-control" name="firstName"></div>
+            <div class="col-xs-7"><input type="text" class="form-control" name="firstName" placeholder="${user.firstName}"></div>
         </div>
 
         <div class="form-group">
             <div class="col-xs-5"><label class="control-label">Last Name<sup>*</sup></label></div>
-            <div class="col-xs-7"><input type="text" class="form-control" name="lastName"></div>
+            <div class="col-xs-7"><input type="text" class="form-control" name="lastName" placeholder="${user.lastName}"></div>
 
         </div>
 
         <div class="form-group">
             <div class="col-xs-5"><label class="control-label">Username Name<sup>*</sup></label></div>
-            <div class="col-xs-7 "><input type="text" class="form-control" name="userName"></div>
+            <div class="col-xs-7 "><input type="text" class="form-control" name="userName"  placeholder="${user.userName}"></div>
 
         </div>
 

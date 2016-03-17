@@ -8,21 +8,22 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal">
+                <g:form class="form-horizontal" url="[controller:'user',action:'invite']">
 
                     <div class="form-group">
-                        <label class="control-label col-xs-4" for="email">Email/Username:</label>
+                        <label class="control-label col-xs-4" for="email">Email:</label>
 
                         <div class="col-xs-8">
-                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                         </div>
                     </div>
 
+
                     <div class="form-group">
-                        <label class="pull-left col-xs-4" for="pwd">Password:</label>
+                        <label class="control-label col-xs-4" for="topic">Topic:</label>
 
                         <div class="col-xs-8">
-                            <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                            <g:select class="btn dropdown-toggle" data-toggle="dropdown" name="topic" id="doctopic" style="width:200px; " from="${subscribedTopics*.name}"/>
                         </div>
                     </div>
 
@@ -30,22 +31,18 @@
                         <div class="col-xs-4"></div>
 
                         <div class="col-xs-4">
-                            <input type="Login" class="form-control btn btn-default active" placeholder="Invite"
-                                   style="color:black;border:solid black;border-radius:7px">
+                            <input type="submit" class="form-control btn btn-default active" placeholder="Invite"
+                                   >
                         </div>
-
                         <div class="col-xs-4">
-                            <input type="Login" class="form-control btn btn-default active" id="submit"
-                                   placeholder="Cancel"
-                                   style="color:black;border:solid black;border-radius:7px">
+                            <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
 
-                </form>
-            </div>
+                    <div class="col-xs-8"></div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </g:form>
             </div>
         </div>
     </div>

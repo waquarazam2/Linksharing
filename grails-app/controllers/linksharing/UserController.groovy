@@ -100,11 +100,11 @@ class UserController {
     }
 
     def edit() {
-
+        render(view: 'edit', model: [user: session.user])
     }
 
     def updatePassword(UpdatePasswordCO co) {
-        if (userService.updatePassword(co.password, co.confirmPassword)) {
+        if (userService.updatePassword(session.user.id, co.password, co.confirmPassword)) {
             render([message: 'success']) as JSON
         } else {
             render([error: 'failure']) as JSON
@@ -139,12 +139,20 @@ class UserController {
     }
 
     def activateUser(long userId, boolean activate) {
+        println userId + "     " + activate
         if (userService.changeActivation(userId, activate)) {
             render([message: 'success']) as JSON
         } else {
-           render([message: 'failure']) as JSON
+            render([message: 'failure']) as JSON
         }
 
+    }
+
+    def invite(String email, String topic) {
+        println 'called'+topic
+        EmailDTO emailDTO = new EmailDTO(to: [email], subject: "Topic Invitation", view: "/email/_invite", model: [user: session.user.name,topic:topic, id:Topic.findByName(topic).id,serverUrl: grailsApplication.config.grails.serverURL])
+        customMailService.sendMail(emailDTO)
+        redirect(controller: 'user',action: 'index')
     }
 }
 

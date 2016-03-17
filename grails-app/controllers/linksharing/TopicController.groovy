@@ -25,8 +25,9 @@ class TopicController {
     def show(long id) {
         Topic topic = Topic.read(id)
         List<User> subscribedUsers = topic.subscribedUsers
+        List resources=Resource.findAllByTopic(topic)
 
-        render(view: "index", model: [users: subscribedUsers, topicName: topic.name])
+        render(view: "index", model: [users: subscribedUsers, topicName: topic.name,resources:resources])
     }
 
     def save(String topicName, String visibility) {
@@ -70,7 +71,7 @@ class TopicController {
                 resource.delete(flush: true)
             }
 
-            topic.delete(flush: true)String
+            topic.delete(flush: true)
             message = ["message": "Deleted"]
         } else {
             message = ["message": "Topic not Found"]

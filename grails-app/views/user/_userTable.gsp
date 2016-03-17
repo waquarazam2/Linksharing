@@ -55,14 +55,10 @@
             data: {"activate": active, "userId": id},
             method: "POST",
             success: function (data) {
-
-                $("#responseMessage"+id).attr("class", "alert alert-danger").show();
-                $("#responseMessage"+id).text(data.message);
-
+                window.location.reload(true)
             },
             error: function (data) {
-                $("#responseMessage"+id).attr("class", "alert alert-danger").show();
-                $("#responseMessage"+id).text(data.message);
+                window.location.reload(true)
             }
         });
     }

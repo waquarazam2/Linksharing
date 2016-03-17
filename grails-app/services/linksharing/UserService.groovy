@@ -44,6 +44,7 @@ class UserService {
 
     def changeActivation(long userId,Boolean active){
         User user=User.get(userId)
+        user.confirmPassword=user.password
         String message
         if(user){
             user.active=active
