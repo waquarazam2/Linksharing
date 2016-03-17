@@ -41,4 +41,20 @@ class UserService {
         }
 
     }
+
+    def changeActivation(long userId,Boolean active){
+        User user=User.get(userId)
+        String message
+        if(user){
+            user.active=active
+            if(user.save(flush: true)){
+                return  true
+            }else{
+               return  false
+            }
+        }else{
+            return  false
+
+        }
+    }
 }

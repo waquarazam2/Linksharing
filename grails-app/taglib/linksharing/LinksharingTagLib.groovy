@@ -108,6 +108,13 @@ class LinksharingTagLib {
 
     }
 
+    def showActivate = { attr, body ->
+        User user = session.user
+        if (user) {
+            (user.active) ? out << g.remoteLink(controller: "user", action: "activateUser", update: "${attr.id}", id: "${attr.topicId}", "Unsubscribe") : out << g.remoteLink(controller: "subscription", action: "save", update: "${attr.topicId}", id: "${attr.topicId}", "Subscribe")
+        }
+    }
+
 
 }
 
