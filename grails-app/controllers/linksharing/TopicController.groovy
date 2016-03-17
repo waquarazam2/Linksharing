@@ -61,6 +61,14 @@ class TopicController {
         def message
         Topic topic = Topic.load(id)
         if (topic) {
+            List resources = Resource.findAllByTopic(topic)
+            Subscription.findAllByTopic(topic)*.delete(flush: true)
+            resources.each{resource->
+                ReadingItem.findAllByResource(resource)*.delete(flush: true)
+                ResourceRating.findAllByResource(resource)*.delete(flush: true)
+                resource.delete(flush: true)
+            }
+
             topic.delete(flush: true)
             message = ["message": "Deleted"]
         } else {

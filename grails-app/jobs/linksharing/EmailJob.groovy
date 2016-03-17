@@ -1,10 +1,10 @@
 package linksharing
 
-class UnreadItemEmailJob {
+class EmailJob {
     def customMailService
     static triggers = {
-      //  simple name:'simpleTrigger', repeatInterval: 604800000, repeatCount: -1
-        cron name: 'myTrigger', cronExpression: " 0 42 23 ? ? ?"
+        //  simple name:'simpleTrigger', repeatInterval: 604800000, repeatCount: -1
+       // cron name: 'myTrigger', cronExpression: " 0 42 23 ? ? ?"
     }
 
     def execute() {
@@ -16,4 +16,3 @@ class UnreadItemEmailJob {
 
     }
 }
-
