@@ -1,5 +1,6 @@
 package linksharing
 
+import grails.converters.JSON
 import org.springframework.beans.factory.annotation.Autowired
 
 class UserController {
@@ -16,14 +17,12 @@ class UserController {
 
     def register(UserCO co) {
         def f = request.getFile('photo')
-
-
-        log.info("File uploaded: $user.avatarType")
         User user = new User(email: co.email, userName: co.userName, password: co.password, confirmPassword: co.confirmPassword, firstName: co.firstName, lastName: co.lastName, active: true, admin: false)
         user.photo = f.bytes
         user.photoType = f.contentType
         if (user.save()) {
-            render 'success'
+            session.user=user
+            redirect(controller: 'login',action: 'index')
         } else {
             flash.message = user.errors
             flash.error = 'User not registered'
@@ -35,9 +34,6 @@ class UserController {
     @Autowired
     CustomBean myBeanConstructor1
 
-    def saveUser() {
-        render userService.saveService()
-    }
     def assetResourceLocator
 
     def image(Long id) {
@@ -56,9 +52,9 @@ class UserController {
     }
 
 
-    def isUsernameValid(String username) {
+    def isUsernameValid(String userName) {
         int numUser = 0
-        numUser = User.countByUsername(username)
+        numUser = User.countByUserName(userName)
         if (numUser >= 1)
             render false
         else
@@ -67,7 +63,7 @@ class UserController {
 
     def isEmailIdValid(String emailId) {
         int num = 0;
-        num = User.countByEmailId(emailId)
+        num = User.countByEmail(emailId)
         if (num >= 1)
             render false
         else
@@ -75,7 +71,6 @@ class UserController {
 
     }
     def customMailService
-
 
     def forgotPassword(String email) {
         User user = User.findByEmail(email)
@@ -89,6 +84,34 @@ class UserController {
             flash.error = "Email not for a valid user"
         }
         redirect(controller: "login", action: "index")
+    }
+
+    def save(UpdateProfileCO co){
+        def f = request.getFile('photo')
+        byte[] a = f.bytes
+        Long id=session.user.id
+
+        if(userService.save(id,co.firstName,co.lastName,co.userName,a)){
+            render([message:'success']) as JSON
+        }
+        else{
+            render([error:'failure']) as JSON
+        }
+
+    }
+
+    def edit(){
+
+    }
+
+    def updatePassword(UpdatePasswordCO co){
+        if(userService.updatePassword(co.password,co.confirmPassword)){
+            render([message:'success']) as JSON
+        }
+        else{
+            render([error:'failure']) as JSON
+        }
+
     }
 }
 

@@ -44,7 +44,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#">Profiles</a></li>
+                            <li><g:link url="[controller: 'user',action: 'edit']" >Profiles</g:link></li>
                             <g:if test="${session.user.admin}">
                             <li><a href="#">Users</a></li>
                             <li><a href="#">Topic</a></li>
