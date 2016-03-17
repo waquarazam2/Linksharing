@@ -10,7 +10,7 @@ class SubscriptionController {
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
         if (subscription && (subscription.topic.createdBy != session.user)) {
             subscription.delete(flush: true)
-                    render([message:'deleted successfully']) as JSON
+                    render(ls.showSubscribe(topicId:id))
         } else {
          render([error:'unable to delete'])  as JSON
         }
@@ -25,7 +25,7 @@ class SubscriptionController {
         Subscription subscription = new Subscription(topic: topic, user: session.user)
 
         if (subscription.save(flush: true)) {
-            render([message:'saved successfully']) as JSON
+            render(ls.showSubscribe(topicId: id))
         } else {
             render([error:'unable to save']) as JSON
         }
@@ -33,17 +33,16 @@ class SubscriptionController {
 
     }
 
-    def update(long id, String seriousness) {
-        Subscription subscription = Subscription.get(id)
-        if (subscription && Seriousness.convertToEnum(seriousness)) {
+    def update(String seriousness,long id) {
+        def message
+        Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.read(id))
+        if (subscription) {
             subscription.seriousness = Seriousness.convertToEnum(seriousness)
-            if (subscription.save(flush: true)) {
-                render([message:'success']) as JSON
-            } else {
-                render([error:'errors']) as JSON
-            }
+            subscription.save(flush: true)
+            message = ["message": "Success"]
         } else {
-            render([error:'subscription or seriousness not found']) as JSON
+            message = ["message": "Could not Update"]
         }
+        render message as JSON
     }
 }
