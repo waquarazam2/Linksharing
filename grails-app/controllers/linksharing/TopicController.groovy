@@ -5,6 +5,7 @@ import grails.converters.JSON
 class TopicController {
 
     def index() {
+
     }
 
 
@@ -69,7 +70,7 @@ class TopicController {
                 resource.delete(flush: true)
             }
 
-            topic.delete(flush: true)
+            topic.delete(flush: true)String
             message = ["message": "Deleted"]
         } else {
             message = ["message": "Topic not Found"]

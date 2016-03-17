@@ -1,5 +1,7 @@
 package linksharing
 
+import grails.converters.JSON
+
 class ResourceController {
 
     def index(long id) {
@@ -40,7 +42,6 @@ class ResourceController {
 
     def show(long id)
     {
-        println "999999999999999999999999999999999999999999    "+id
         Resource resource = Resource.get(id)
         if(Resource.canViewedBy(session.user,resource)) {
             List trendingTopics = Topic.getTrendingTopics()
@@ -48,6 +49,23 @@ class ResourceController {
         }
         else {
             flash.error = "User Cannot view Topic"
+        }
+    }
+    def resourceService
+
+    def save(long id,String description){
+        Resource resource =Resource.get(id)
+        println "called                 ssd "+id+"  "+description
+        if(resource){
+            if(resourceService.save(resource,description)) {
+                render([message: 'Save successfully']) as JSON
+            }
+            else{
+                render([message:'unable to save']) as JSON
+            }
+        }
+        else{
+            render([error:'Resource not found']) as JSON
         }
     }
 }
