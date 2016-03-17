@@ -47,7 +47,7 @@ class LinksharingTagLib {
     def showSubscribe = { attr, body ->
         User user = session.user
         if (user) {
-            (user.isSubscribed(attr.topicId)) ? out << g.remoteLink(controller: "subscription", action: "delete", update: 'message', id: "${attr.topicId}", "Unsubscribe") : out << g.remoteLink(controller: "subscription", action: "save", update: 'message', id: "${attr.topicId}", "Subscribe")
+            (user.isSubscribed(attr.topicId)) ? out << g.remoteLink(controller: "subscription", action: "delete", update: "${attr.topicId}", id: "${attr.topicId}", "Unsubscribe") : out << g.remoteLink(controller: "subscription", action: "save", update: "${attr.topicId}", id: "${attr.topicId}", "Subscribe")
         }
     }
 

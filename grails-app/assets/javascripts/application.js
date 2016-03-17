@@ -83,7 +83,7 @@ function changeVisibility(visibility, id, panelName) {
         }
     });
 }
-function changeSeriousness(seriousness, id, panelName) {
+function changeSeriousness(seriousness, id) {
     var alertPanel = $("#alertPanel");
     $.ajax({
         url: "/subscription/update",
@@ -92,59 +92,23 @@ function changeSeriousness(seriousness, id, panelName) {
         success: function (data) {
             var response = data.message
             if (response == "Success") {
-                if (panelName == "trendingTopics") {
-                    loadTrendingTopics(function () {
                         $("#responseMessage").attr("class", "alert alert-success").fadeIn();
                         $("#responseMessage > .visibilityText").text(response);
-                        var successPanel = setInterval(function(){
                             $("#trendingTopic").attr("class","panel panel-success")
-                        },0);
-                    });
-                    loadSubscription();
-                }
-                else if (panelName == "createdTopics") {
-                    loadCreatedTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
-                        $("#responseMessage > .visibilityText").text(response);
-                    })
-                }
-                else if (panelName == "subscription") {
-                    loadSubscription(function () {
-                        $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
-                        $("#responseMessageSubs > .visibilityText").text(response);
-                    })
-                    loadTrendingTopics();
-                }
-                else {
-                    $("#responseMessage").attr("class", "alert alert-success").fadeIn();
-                    $("#responseMessage > .visibilityText").text(response);
-                }
+
             }
             else {
-                if (panelName == "subscription") {
-                    loadSubscription(function () {
-                        $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
-                        $("#responseMessageSubs > .visibilityText").text(response);
-                    })
-                }
-                else {
+
                     $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
                     $("#responseMessage > .visibilityText").text(response);
-                }
+
             }
 
         },
         error: function (data) {
-            if (panelName == "subscription") {
-                loadSubscription(function () {
                     $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
                     $("#responseMessageSubs > .visibilityText").text(response);
-                })
-            }
-            else {
-                $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
-                $("#responseMessage > .visibilityText").text(data.statusText);
-            }
+
         }
     });
 }
