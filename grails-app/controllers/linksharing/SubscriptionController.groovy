@@ -10,7 +10,7 @@ class SubscriptionController {
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
         if (subscription && (subscription.topic.createdBy != session.user)) {
             subscription.delete(flush: true)
-                    render(ls.showSubscribe(topicId:id))
+            render(ls.showSubscribe(topicId: id))
         } else {
          render([error:'unable to delete'])  as JSON
         }
@@ -27,13 +27,13 @@ class SubscriptionController {
         if (subscription.save(flush: true)) {
             render(ls.showSubscribe(topicId: id))
         } else {
-            render([error:'unable to save']) as JSON
+            render([error: 'unable to save']) as JSON
         }
 
 
     }
 
-    def update(String seriousness,long id) {
+    def update(String seriousness, long id) {
         def message
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.read(id))
         if (subscription) {

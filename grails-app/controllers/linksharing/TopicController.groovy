@@ -70,12 +70,12 @@ class TopicController {
                 resource.delete(flush: true)
             }
 
-            topic.delete(flush: true)String
-            message = ["message": "Deleted"]
+            topic.delete(flush: true)
+            flash.message = "Deleted"
         } else {
-            message = ["message": "Topic not Found"]
+            flash.error = "Topic not Found"
         }
-        render message as JSON
+        redirect(controller: 'user', action: 'index')
     }
 
     def customMailService
