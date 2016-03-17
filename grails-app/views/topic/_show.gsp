@@ -77,9 +77,6 @@
     }
 
     $(".editButton").click(function () {
-        var currentElementId = (this.id).substr(13);
-        console.log(currentElementId);
-        $("#editTopicName").show();
-        $("#topicName").hide();s
+        $(".form-group").show()
     });
 </script>
