@@ -2,8 +2,6 @@ package linksharing
 
 class LinkResourceController {
 
-    def index() {}
-
     def saveLink(String link, String description, String topic) {
         println topic
 

@@ -5,7 +5,7 @@ import grails.converters.JSON
 class TopicController {
 
     def index() {
-
+        render(view: 'index')
     }
 
 

@@ -47,8 +47,6 @@
                             <li><g:link url="[controller: 'user',action: 'edit']" >Profiles</g:link></li>
                             <g:if test="${session.user.admin}">
                             <li><g:link url="[controller: 'user',action: 'userShow']" href="#">Users</g:link></li>
-                            <li><a href="#">Topic</a></li>
-                            <li><a href="#">Post</a></li>
                             </g:if>
                            <li> <g:link controller="login" action="logout">Logout</g:link></li>
 
