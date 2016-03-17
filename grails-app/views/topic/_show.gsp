@@ -13,6 +13,7 @@
         <button type="button" class="btn btn-success buttonSave" id="saveTopicName"
                 onclick="saveTopicName(${linksharing.Topic.findByName(topicName).id})">Save</button>
     </div>
+    <br><br>
     <div id="responseMessage"></div>
 
 </div>
@@ -48,7 +49,7 @@
 <script>
     function saveTopicName(topicId) {
         console.log("This was called");
-        $("#editTopicName").hide();
+        $("#editTopicName").show();
         $("#saveTopicName").show();
 
         $.ajax({
@@ -58,11 +59,9 @@
             success: function (data) {
                 var response = data.message;
                 if (response == "Topic Updated") {
-                    loadTrendingTopics(function () {
                         $("#responseMessage").attr("class", "alert alert-success").show();
-                        $("#responseMessage > .visibilityText").text(response);
-                        loadSubscription();
-                    })
+                        $("#responseMessage").text(response);
+
                 }
                 else {
                     $("#responseMessage").attr("class", "alert alert-danger").show();
