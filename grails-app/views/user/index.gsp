@@ -10,13 +10,14 @@
 
 <div class="col-xs-6">
     <g:render template="profile"/>
-    <g:render template="subscription"/>
+    <ls:trendingTopics/>
 
 </div>
 
 <div class="col-xs-6">
     <g:render template="inbox"/>
-    <ls:trendingTopics/>
+    <g:render template="subscription"/>
+
 
 </div>
 </div>
