@@ -48,11 +48,15 @@ class UserService {
         if(user){
             user.active=active
             if(user.save(flush: true)){
+                println user.errors
                 return  true
             }else{
+                println user.errors
                return  false
+
             }
         }else{
+            println user.errors
             return  false
 
         }
