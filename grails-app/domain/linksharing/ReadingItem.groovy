@@ -3,40 +3,43 @@ package linksharing
 class ReadingItem {
     Resource resource
     User user
-    Boolean isRead=false
+    Boolean isRead = false
     Date dateCreated
     Date lastUpdated
 
 
     static constraints = {
         resource(nullable: false)
-        user(nullable: false,unique: 'resource')
+        user(nullable: false, unique: 'resource')
         isRead(nullable: false)
     }
 
-    static boolean changeIsRead(long  id,boolean isRead) {
-        if(ReadingItem.executeUpdate("update ReadingItem set isRead=:isRead where id=:id",[isRead:isRead,id:id])){
-           true
-        }
-        else{
+    static boolean changeIsRead(long id, boolean isRead) {
+        if (ReadingItem.executeUpdate("update ReadingItem set isRead=:isRead where id=:id", [isRead: isRead, id: id])) {
+            true
+        } else {
             false
         }
     }
 
     static List getReadingItems(User user) {
 
-        List list=ReadingItem.createCriteria().list{
-            projections{
-                createAlias('resource','r')
+        List list = ReadingItem.createCriteria().list {
+            projections {
+                createAlias('resource', 'r')
                 property('id')
                 property('r.description')
                 property('r.url')
                 property('r.createdBy')
                 property('r.id')
             }
-            eq('user',user)
+            eq('user', user)
 
         }
         return list
+    }
+
+    static List unreadPosts(User user){
+         ReadingItem.findAllByIsReadAndUser(false,user)
     }
 }

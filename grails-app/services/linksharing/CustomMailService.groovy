@@ -19,4 +19,8 @@ class CustomMailService {
 
         }
     }
+
+    def sendUnreadResourcesEmail(User user, List<Resource> resourceList){
+        EmailDTO emailDTO = new EmailDTO(to:[user.email],view:'/email/unreadResources',model: [name:user.name,resources:resourceList*.description])
+    }
 }

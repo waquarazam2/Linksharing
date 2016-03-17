@@ -5,8 +5,6 @@ import grails.converters.JSON
 class TopicController {
 
     def index() {
-        Topic topic = Topic.get(params.id)
-        render(view: 'index', model: [users: topic.getSubscribedUsers(), topicName: topic.name])
     }
 
 
@@ -23,25 +21,11 @@ class TopicController {
         render message as JSON
     }
 
+    def show(long id) {
+        Topic topic = Topic.read(id)
+        List<User> subscribedUsers = topic.subscribedUsers
 
-    def show(ResourceSearchCO co) {
-        Topic topic = Topic.read(co.topicId)
-        if (topic) {
-            if (topic.visibility == Visibility.PUBLIC) {
-                render('success')
-            } else {
-                List subscriptions = session.user.subscriptions
-                if (subscriptions.find { it.topic == topic }) {
-                    render('success')
-                } else {
-                    flash.error = 'Topic nut subscribed'
-                    redirect(controller: 'login', action: 'index')
-                }
-            }
-        } else {
-            flash.error = 'Topic does not exist!'
-            redirect(controller: 'login', action: 'index')
-        }
+        render(view: "index", model: [users: subscribedUsers, topicName: topic.name])
     }
 
     def save(String topicName, String visibility) {

@@ -102,11 +102,13 @@
 
                             <div><a href="javascript:void(0);" class="editButton" id="editTopicIcon${iteration++}"><i
                                     class="glyphicon glyphicon-file col-xs-1"
+                                    style="font-size:20px;"></i></a></div>    <div><a href="javascript:void(0);" class="editButton" id="editTopicIcon${iteration++}"><i
+                                    class="glyphicon glyphicon-file col-xs-1"
                                     style="font-size:20px;"></i></a></div>
 
-                            <div><a href="javascript:void(0);" onclick="deleteTopic(${trendingTopic.id}, 'trendingTopics')"><i
+                            <div><g:link url="[controller: 'topic',action: 'delete',params: [id:trendingTopic.id]]"><i
                                     class="glyphicon glyphicon-trash col-xs-1"
-                                    style="font-size:20px;"></i></a></div>
+                                    style="font-size:20px;"></i></g:link></div>
                         </g:if>
                     </div>
                 </div>

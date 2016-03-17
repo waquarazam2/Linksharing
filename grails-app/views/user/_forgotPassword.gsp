@@ -9,21 +9,21 @@
 
             <div class="modal-body">
 
-                <form class="form-horizontal">
+                <g:form class="form-horizontal" name="forgotPassword" url="[controller:'user',action:'forgotPassword']">
 
                     <div class="form-group">
                         <label class="control-label col-xs-4" for="email">Email:</label>
 
                         <div class="col-xs-8">
-                            <input type="Name" class="form-control" id="email" placeholder="Enter email">
+                            <input type="text" name="email" class="form-control" id="email" placeholder="Enter email">
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
+                        <button type="submit" class="btn btn-default">Submit</button>
                     </div>
 
-                </form>
+                </g:form>
             </div>
 
         </div>

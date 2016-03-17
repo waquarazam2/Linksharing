@@ -10,13 +10,13 @@ class SubscriptionController {
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
         if (subscription && (subscription.topic.createdBy != session.user)) {
             subscription.delete(flush: true)
-                    render([message:'deleted successfully',status:true] as JSON)
+                    render([message:'deleted successfully']) as JSON
         } else {
-         render([error:'unable to delete',status: true] as JSON)
+         render([error:'unable to delete'])  as JSON
         }
 
 
-      //  redirect(controller: 'user', action: 'index')
+        redirect(controller: 'user', action: 'index')
     }
 
     def save(long id) {

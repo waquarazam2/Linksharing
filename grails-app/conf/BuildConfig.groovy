@@ -78,6 +78,20 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:mail:1.0.7"
 
         compile "org.grails.plugins:jquery-validation:1.9"
+        compile ':quartz:1.0.1'
+        compile "org.grails.plugins:codenarc:0.25.1"
+
 
     }
+
+    codenarc {
+        ruleSetFiles = "file:grails-app/conf/CodeNarcRules.groovy"
+        reports = {
+            HtmlReport('html') {                  // Report type is 'html'
+                outputFile = 'target/CodeNarcReport.html'
+                title = 'My Test Code Narc Report'
+            }
+        }
+    }
+
 }

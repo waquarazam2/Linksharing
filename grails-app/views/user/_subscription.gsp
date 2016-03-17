@@ -1,3 +1,4 @@
+<%@ page import="linksharing.Subscription" %>
 <div class="panel panel-default">
 <div class="panel-heading clearfix">
     <h5 class="panel-title pull-left"
@@ -100,9 +101,9 @@
                             class="glyphicon glyphicon-file col-xs-1"
                             style="font-size:20px;"></i></a></div>
 
-                    <div><a href="javascript:void(0);" onclick="deleteTopic(${topic.id})"><i
+                    <div><g:link url="[controller: 'subscription',action: 'delete',params: [id: Subscription.findByTopic(topic).id]]"><i
                             class="glyphicon glyphicon-trash col-xs-1"
-                            style="font-size:20px;"></i></a></div>
+                            style="font-size:20px;"></i></g:link></div>
                 </div>
             </div>
         </div>

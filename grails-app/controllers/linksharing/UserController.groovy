@@ -80,12 +80,10 @@ class UserController {
     def forgotPassword(String email) {
         User user = User.findByEmail(email)
         if (user && user.active) {
-            int newPassword = RandomPasswordGenerator.generate()
-            EmailDTO emailDTO = new EmailDTO(to: [email], subject: "Account Recovery", view: "/user/_password", model: [userName: user.name, newPassword: newPassword, serverUrl: grailsApplication.config.grails.serverURL])
+            String newPassword = RandomPasswordGenerator.generate()
+            EmailDTO emailDTO = new EmailDTO(to: [email], subject: "Account Recovery", view: "/email/_password", model: [userName: user.name, newPassword: newPassword, serverUrl: grailsApplication.config.grails.serverURL])
             customMailService.sendMail(emailDTO)
-            user.password = newPassword
-            user.confirmPassword = newPassword
-            user.save(flush: true)
+            user.changePassword(newPassword)
             flash.message = "Success"
         } else {
             flash.error = "Email not for a valid user"
