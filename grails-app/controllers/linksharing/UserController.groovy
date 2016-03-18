@@ -31,8 +31,8 @@ class UserController {
     }
 
 //    def myBeanConstructor2
-    @Autowired
-    CustomBean myBeanConstructor1
+    /*@Autowired
+    CustomBean myBeanConstructor1*/
 
     def assetResourceLocator
 
