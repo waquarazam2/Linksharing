@@ -4,12 +4,6 @@ import grails.test.spock.IntegrationSpec
 
 class TopicIntegrationSpec extends IntegrationSpec {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "trending topics"() {
 
         when:

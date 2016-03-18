@@ -9,12 +9,6 @@ import spock.lang.Specification
 @TestFor(DocumentResource)
 class DocumentResourceSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "TestingToString"() {
         setup:
         DocumentResource documentResource = new DocumentResource(filePath: 'Home')

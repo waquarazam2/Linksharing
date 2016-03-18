@@ -4,8 +4,6 @@ import grails.converters.JSON
 
 class ReadingItemController {
 
-    def index() { }
-
     def changeIsRead(long id, boolean isRead) {
         ReadingItem readingItem = ReadingItem.get(id)
         if (readingItem.executeUpdate("update ReadingItem as RI set RI.isRead=:isRead where RI.id=:id", [isRead: isRead, id: id])) {
@@ -16,7 +14,4 @@ class ReadingItemController {
 
     }
 
-    def saveRating(){
-        
-    }
 }
