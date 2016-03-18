@@ -25,8 +25,9 @@ class TopicController {
     def show(long id) {
         Topic topic = Topic.read(id)
         List<User> subscribedUsers = topic.subscribedUsers
+        List resources=Resource.findAllByTopic(topic)
 
-        render(view: "index", model: [users: subscribedUsers, topicName: topic.name])
+        render(view: "index", model: [users: subscribedUsers, topicName: topic.name,resources:resources])
     }
 
     def save(String topicName, String visibility) {
@@ -71,11 +72,11 @@ class TopicController {
             }
 
             topic.delete(flush: true)
-            flash.message = "Deleted"
+            message = ["message": "Deleted"]
         } else {
-            flash.error = "Topic not Found"
+            message = ["message": "Topic not Found"]
         }
-        redirect(controller: 'user', action: 'index')
+        render message as JSON
     }
 
     def customMailService

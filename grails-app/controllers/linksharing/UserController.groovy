@@ -21,8 +21,8 @@ class UserController {
         user.photo = f.bytes
         user.photoType = f.contentType
         if (user.save()) {
-            session.user=user
-            redirect(controller: 'login',action: 'index')
+            session.user = user
+            redirect(controller: 'login', action: 'index')
         } else {
             flash.message = user.errors
             flash.error = 'User not registered'
@@ -86,32 +86,73 @@ class UserController {
         redirect(controller: "login", action: "index")
     }
 
-    def save(UpdateProfileCO co){
+    def save(UpdateProfileCO co) {
         def f = request.getFile('photo')
         byte[] a = f.bytes
-        Long id=session.user.id
+        Long id = session.user.id
 
-        if(userService.save(id,co.firstName,co.lastName,co.userName,a)){
-            render([message:'success']) as JSON
-        }
-        else{
-            render([error:'failure']) as JSON
+        if (userService.save(id, co.firstName, co.lastName, co.userName, a)) {
+            render([message: 'success']) as JSON
+        } else {
+            render([error: 'failure']) as JSON
         }
 
     }
 
-    def edit(){
+    def edit() {
+        render(view: 'edit', model: [user: session.user])
+    }
+
+    def updatePassword(UpdatePasswordCO co) {
+        if (userService.updatePassword(session.user.id, co.password, co.confirmPassword)) {
+            render([message: 'success']) as JSON
+        } else {
+            render([error: 'failure']) as JSON
+        }
 
     }
 
-    def updatePassword(UpdatePasswordCO co){
-        if(userService.updatePassword(co.password,co.confirmPassword)){
-            render([message:'success']) as JSON
+    def userShow() {
+        render(view: "users", model: [userCount: User.count])
+    }
+
+
+    def loadUserTable(String q, String sortBy) {
+        params.max = (params.max) ? params.max : 10;
+        List<User> userList = User.list(params);
+        if (q && !q.equals("")) {
+            println "here"
+            userList = User.createCriteria().list(params) {
+                or {
+                    ilike("userName", "%${q}%")
+                    ilike("firstName", "%${q}%")
+                }
+            }
+        } else if (sortBy) {
+            if (sortBy.equalsIgnoreCase("activated")) {
+                userList = User.findAllByActive(true);
+            } else if (sortBy.equalsIgnoreCase("deactivated")) {
+                userList = User.findAllByActive(false);
+            }
         }
-        else{
-            render([error:'failure']) as JSON
+        render(template: "/user/userTable", model: [users: userList])
+    }
+
+    def activateUser(long userId, boolean activate) {
+        println userId + "     " + activate
+        if (userService.changeActivation(userId, activate)) {
+            render([message: 'success']) as JSON
+        } else {
+            render([message: 'failure']) as JSON
         }
 
+    }
+
+    def invite(String email, String topic) {
+        println 'called'+topic
+        EmailDTO emailDTO = new EmailDTO(to: [email], subject: "Topic Invitation", view: "/email/_invite", model: [user: session.user.name,topic:topic, id:Topic.findByName(topic).id,serverUrl: grailsApplication.config.grails.serverURL])
+        customMailService.sendMail(emailDTO)
+        redirect(controller: 'user',action: 'index')
     }
 }
 

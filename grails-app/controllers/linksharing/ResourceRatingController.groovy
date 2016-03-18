@@ -2,10 +2,8 @@ package linksharing
 
 class ResourceRatingController {
 
-    def index() {}
     def saveRating(int rating,long id)
     {
-        print " '''''''''"+Resource.read(id)+"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
         User user = session.user
         Resource resource = Resource.read(id)
         ResourceRating resourceRating = ResourceRating.findOrCreateWhere(user:user,resource:resource)

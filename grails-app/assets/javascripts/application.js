@@ -163,3 +163,7 @@ function deleteTopic(id) {
         }
     });
 }
+
+function loadUserTable() {
+    $("#userTableSection").load("/user/loadUserTable")
+}

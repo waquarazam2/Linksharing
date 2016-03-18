@@ -6,16 +6,16 @@
 </head>
 
 <body>
-<div class="col-xs-1"></div>
+<div class="container">
 
-<div class="col-xs-4">
+<div class="col-xs-5">
     <g:render template="/topic/show"/>
 </div>
 
-<div class="col-xs-6">
-
+<div class="col-xs-7">
+    <g:render template="/resource/topicResource"/>
+</div>
 </div>
 
-<div class="col-xs-1"></div>
 </body>
 </html>

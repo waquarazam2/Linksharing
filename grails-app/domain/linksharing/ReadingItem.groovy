@@ -42,4 +42,10 @@ class ReadingItem {
     static List unreadPosts(User user){
          ReadingItem.findAllByIsReadAndUser(false,user)
     }
+
+    String toString(){
+        String name=this.user.name+this.resource.name
+        return  name
+
+    }
 }

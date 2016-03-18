@@ -9,4 +9,7 @@ class LinkResource extends Resource{
     String toString(){
         return  url
     }
+    boolean equals(Resource resource){
+        return this==resource
+    }
 }

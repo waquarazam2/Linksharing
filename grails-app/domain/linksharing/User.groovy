@@ -43,9 +43,9 @@ class User {
         photoType(nullable: true)
         confirmPassword(bindable: true, validator: { val, obj ->
             if (obj.id) {
-                return val == obj.password
-            } else {
                 return true
+            } else {
+                return val == obj.password
             }
         })
     }

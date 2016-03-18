@@ -50,4 +50,8 @@ class DocumentResource extends Resource{
             return false
         }
     }
+
+    boolean equals(Resource resource){
+        return this==resource
+    }
 }

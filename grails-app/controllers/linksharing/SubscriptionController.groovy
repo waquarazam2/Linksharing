@@ -4,8 +4,6 @@ import grails.converters.JSON
 
 class SubscriptionController {
 
-    def index() {}
-
     def delete(long id) {
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
         if (subscription && (subscription.topic.createdBy != session.user)) {
