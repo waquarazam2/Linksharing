@@ -10,12 +10,6 @@ import spock.util.mop.ConfineMetaClassChanges
 @TestFor(UserController)
 class UserControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "index"() {
         when:
         controller.index()

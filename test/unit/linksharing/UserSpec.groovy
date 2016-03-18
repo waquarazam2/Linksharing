@@ -10,13 +10,6 @@ class UserSpec extends Specification {
     User user = new User(email: "waquar.azam@tothenew.com", userName: "waquar1234", firstName: "Waquar",
             lastName: "Azam", admin: true, active: true, password: "abcdefgh")
 
-    def setup() {
-
-    }
-
-    def cleanup() {
-    }
-
     void "get name"() {
         given:
         user.firstName = firstName

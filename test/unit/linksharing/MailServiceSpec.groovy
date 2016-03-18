@@ -10,12 +10,6 @@ import spock.lang.Specification
 @TestFor(MailService)
 class MailServiceSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "test something"() {
     }
 }

@@ -7,12 +7,6 @@ import spock.lang.Specification
 @TestFor(Topic)
 class TopicSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "validate name"() {
         setup:
         Topic topic = new Topic()

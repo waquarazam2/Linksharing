@@ -4,11 +4,6 @@ import grails.converters.JSON
 
 class TopicController {
 
-    def index() {
-        render(view: 'index')
-    }
-
-
     def update(long id, String visibility) {
         def message
         Topic topic = Topic.read(id)
@@ -72,11 +67,11 @@ class TopicController {
             }
 
             topic.delete(flush: true)
-            message = ["message": "Deleted"]
+            flash.message = "Topic deleted successfully"
         } else {
-            message = ["message": "Topic not Found"]
+            flash.error = "Topic not Found"
         }
-        render message as JSON
+        redirect(controller: 'user', action: 'index')
     }
 
     def customMailService

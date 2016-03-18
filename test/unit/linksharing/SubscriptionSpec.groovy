@@ -9,12 +9,6 @@ import spock.lang.Specification
 @TestFor(Subscription)
 class SubscriptionSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "topic should not be null"() {
         setup:
         Subscription subscription = new Subscription(topic: topic)

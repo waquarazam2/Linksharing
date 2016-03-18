@@ -4,12 +4,6 @@ import grails.test.spock.IntegrationSpec
 
 class ReadingItemIntegrationSpec extends IntegrationSpec {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "change is read"() {
         User user = new User(email: 'mohanjhvfj.gupta@tothenew.com', userName: 'mohan1hffhf243', password: 'sa231dwerfewrc', firstName: 'Mohan', lastName: 'Gupta', admin: false, active: true,confirmPassword:'sa231dwerfewrc')
         Resource resource=new LinkResource(url: 'https://www.google.com',createdBy: user,description: 'abcedefgh',topic: Topic.get(1))

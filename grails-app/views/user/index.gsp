@@ -3,6 +3,16 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Home</title>
+    <script type="text/javascript">
+        var error = "${flash.error}";
+        var success = "${flash.message}";
+        if(error !== "") {
+            alert(error)
+        }
+        if(success !== ""){
+            alert(success)
+        }
+    </script>
 </head>
 
 <body>

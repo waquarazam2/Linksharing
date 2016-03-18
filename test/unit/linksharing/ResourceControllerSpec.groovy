@@ -12,12 +12,6 @@ import spock.lang.Specification
 @TestFor(ResourceController)
 class ResourceControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "delete successful"() {
         setup:
         Resource resource
@@ -25,7 +19,7 @@ class ResourceControllerSpec extends Specification {
             return resource
         }
         and:
-        resource=new LinkResource()
+        resource = new LinkResource()
 
         resource.metaClass.delete = {}
 
@@ -37,12 +31,12 @@ class ResourceControllerSpec extends Specification {
 
     }
 
-    def "delete resource not found"(){
+    def "delete resource not found"() {
         setup:
         Resource.metaClass.static.load = { def id ->
             return null
         }
-        Resource.metaClass.delete={}
+        Resource.metaClass.delete = {}
         when:
         controller.delete()
 

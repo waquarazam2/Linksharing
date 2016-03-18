@@ -31,8 +31,8 @@ class UserController {
     }
 
 //    def myBeanConstructor2
-    @Autowired
-    CustomBean myBeanConstructor1
+    /*@Autowired
+    CustomBean myBeanConstructor1*/
 
     def assetResourceLocator
 
@@ -109,7 +109,7 @@ class UserController {
         } else {
             render([error: 'failure']) as JSON
         }
-
+        render(view: 'edit')
     }
 
     def userShow() {

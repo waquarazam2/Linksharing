@@ -6,12 +6,13 @@ class LinkResourceController {
         println topic
 
         LinkResource linkResource = new LinkResource(url: link, description: description, topic: Topic.findByName(topic), createdBy: session.user)
-        if (linkResource.save(failOnError: true)) {
-            flash.message = 'resource shared'
-        } else {
+        linkResource.save(flush: true)
+        if(linkResource.hasErrors()){
             flash.error = 'error sharing resource'
+        } else{
+            flash.message = 'resource shared'
         }
-        render linkResource.errors
+        redirect(controller: 'user',action: 'index')
     }
 
 }

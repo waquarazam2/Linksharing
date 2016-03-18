@@ -78,9 +78,10 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:mail:1.0.7"
 
         compile "org.grails.plugins:jquery-validation:1.9"
-       // compile ':quartz:1.0.1'
+        compile ':quartz:1.0.1'
         compile "org.grails.plugins:codenarc:0.25.1"
         compile "org.grails.plugins:remote-pagination:0.4.8"
+        test ":code-coverage:2.0.3-3"
 
 
     }
