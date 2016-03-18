@@ -13,8 +13,6 @@ class SubscriptionController {
          render([error:'unable to delete'])  as JSON
         }
 
-
-        redirect(controller: 'user', action: 'index')
     }
 
     def save(long id) {
