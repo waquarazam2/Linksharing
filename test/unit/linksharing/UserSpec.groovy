@@ -136,4 +136,34 @@ class UserSpec extends Specification {
         expect:
         user.toString()=='Waquar Azam'
     }
+
+    void "getScore"(){
+        setup:
+        ResourceRating resourceRating = new ResourceRating()
+        resourceRating.score=2
+        ResourceRating.metaClass.'static'.findByUserAndResource={user,resource1->
+            return  resourceRating
+        }
+
+        when:
+        int n=user.getScore(new LinkResource())
+
+        then:
+        n==2
+
+    }
+
+    void "getScore default score"(){
+        setup:
+        ResourceRating.metaClass.'static'.findByUserAndResource={user,resource1->
+            return  null
+        }
+
+        when:
+        int n=user.getScore(new LinkResource())
+
+        then:
+        n==1
+    }
+
 }

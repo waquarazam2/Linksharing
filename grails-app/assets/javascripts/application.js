@@ -26,7 +26,7 @@ $(document).on({
     ajaxStop: function() { $body.removeClass("loading"); }
 });
 
-function changeVisibility(visibility, id, panelName) {
+function changeVisibility(visibility, id, panel) {
     $.ajax({
         url: "/topic/update",
         data: {"id": id, "visibility": visibility},
@@ -34,80 +34,27 @@ function changeVisibility(visibility, id, panelName) {
         success: function (data) {
             var response = data.message;
             if (response == "Success") {
-                if (panelName == "trendingTopics") {
-                    loadTrendingTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
-                        $("#responseMessage > .visibilityText").text(response);
-                    });
-                    loadSubscription();
+                $('#'+panel+id).html(data.message).fadeIn().delay(1000).fadeOut();
                 }
-                else if (panelName == "createdTopics") {
-                    loadCreatedTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
-                        $("#responseMessage > .visibilityText").text(response);
-                    })
-                }
-                else if (panelName == "subscription") {
-                    loadSubscription(function () {
-                        $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
-                        $("#responseMessageSubs > .visibilityText").text(response);
-                    })
-                    loadTrendingTopics();
-                }
-            }
+
             else {
-                if (panelName == "subscription") {
-                    loadSubscription(function () {
-                        $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
-                        $("#responseMessageSubs > .visibilityText").text(response);
-                    })
-                }
-                else {
-                    $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
-                    $("#responseMessage > .visibilityText").text(response);
-                }
+
             }
 
         },
         error: function (data) {
-            if (panelName == "subscription") {
-                loadSubscription(function () {
-                    $("#responseMessageSubs").attr("class", "alert alert-success").show();
-                    $("#responseMessageSubs > .visibilityText").text(response);
-                })
-            }
-            else {
-                $("#responseMessage").attr("class", "alert alert-danger").show();
-                $("#responseMessage > .visibilityText").text(data.statusText);
-            }
         }
     });
 }
-function changeSeriousness(seriousness, id) {
-    var alertPanel = $("#alertPanel");
+function changeSeriousness(seriousness, id,panel) {
     $.ajax({
         url: "/subscription/update",
         data: {"id": id, "seriousness": seriousness},
         method: "POST",
         success: function (data) {
-            var response = data.message
-            if (response == "Success") {
-                        $("#responseMessage").attr("class", "alert alert-success").fadeIn();
-                        $("#responseMessage > .visibilityText").text(response);
-                            $("#trendingTopic").attr("class","panel panel-success")
-
-            }
-            else {
-
-                    $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
-                    $("#responseMessage > .visibilityText").text(response);
-
-            }
-
+            $('#'+panel+id).html(data.message).fadeIn().delay(1000).fadeOut();
         },
         error: function (data) {
-                    $("#responseMessageSubs").attr("class", "alert alert-success").fadeIn();
-                    $("#responseMessageSubs > .visibilityText").text(response);
 
         }
     });
@@ -122,22 +69,8 @@ function changePassword() {
         data: {"password": password, "confirmPassword": confirm},
         method: "POST",
         success: function (data) {
-            var response = data.message
-            if (response == "Successfully Updated") {
-                $("#responseMessagePassword").attr("class", "alert alert-success").fadeIn();
-                $("#responseMessagePassword > .visibilityText").text(response);
-                $("#password").val("")
-                $("#confirmPassword").val("")
-            }
-            else {
-                $("#responseMessagePassword").attr("class", "alert alert-danger").fadeIn();
-                $("#responseMessagePassword > .visibilityText").text(response);
-            }
-
         },
         error: function (data) {
-            $("#responseMessagePassword").attr("class", "alert alert-danger").fadeIn();
-            $("#responseMessagePassword > .visibilityText").text(data.statusText);
         }
     });
 }
@@ -147,19 +80,10 @@ function deleteTopic(id) {
         data: {"id": id},
         method: "POST",
         success: function (data) {
-            var response = data.message;
-            if (response == "Deleted") {
-                    location.reload();
-            }
-            else {
-                $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
-                $("#responseMessage > .visibilityText").text(response);
-            }
 
         },
         error: function (data) {
-            $("#responseMessage").attr("class", "alert alert-danger").fadeIn();
-            $("#responseMessage > .visibilityText").text(data.statusText);
+
         }
     });
 }
@@ -167,3 +91,7 @@ function deleteTopic(id) {
 function loadUserTable() {
     $("#userTableSection").load("/user/loadUserTable")
 }
+
+$("#srch-term").keyup(function () {
+    $("#searchResults").load("/resource/loadSearchResults", {"q": $("#srch-term").val()});
+});

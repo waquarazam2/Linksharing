@@ -8,31 +8,25 @@ class UserController {
     def userService
 
     def index() {
-        List subscribedTopics = session.user.subscribedTopics
+        List subscribedTopics = session.user?.subscribedTopics
         List readingItems = ReadingItem.getReadingItems(session.user)
         //List<TopicVO> trendingTopics=Topic.getTrendingTopics()
-        render(view: "index", model: [subscribedTopics: subscribedTopics, readingItems: readingItems])
+        render(view: "index", model: [subscribedTopics: subscribedTopics, readingItems: readingItems,loggedInUser:session.user])
 
     }
 
     def register(UserCO co) {
         def f = request.getFile('photo')
-        User user = new User(email: co.email, userName: co.userName, password: co.password, confirmPassword: co.confirmPassword, firstName: co.firstName, lastName: co.lastName, active: true, admin: false)
-        user.photo = f.bytes
-        user.photoType = f.contentType
-        if (user.save()) {
-            session.user = user
+        User user=userService.register(co.firstName,co.lastName,co.userName,co.email,f,co.password,co.confirmPassword)
+        if (user) {
+            session.user=user
             redirect(controller: 'login', action: 'index')
         } else {
-            flash.message = user.errors
+            flash.message = 'errors'
             flash.error = 'User not registered'
-            render user.errors
         }
     }
 
-//    def myBeanConstructor2
-    /*@Autowired
-    CustomBean myBeanConstructor1*/
 
     def assetResourceLocator
 
@@ -118,23 +112,7 @@ class UserController {
 
 
     def loadUserTable(String q, String sortBy) {
-        params.max = (params.max) ? params.max : 10;
-        List<User> userList = User.list(params);
-        if (q && !q.equals("")) {
-            println "here"
-            userList = User.createCriteria().list(params) {
-                or {
-                    ilike("userName", "%${q}%")
-                    ilike("firstName", "%${q}%")
-                }
-            }
-        } else if (sortBy) {
-            if (sortBy.equalsIgnoreCase("activated")) {
-                userList = User.findAllByActive(true);
-            } else if (sortBy.equalsIgnoreCase("deactivated")) {
-                userList = User.findAllByActive(false);
-            }
-        }
+        def userList=userService.loadUserTable(q,sortBy,params)
         render(template: "/user/userTable", model: [users: userList])
     }
 

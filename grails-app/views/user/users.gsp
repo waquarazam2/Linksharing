@@ -39,7 +39,7 @@
         </div>
 
         <div class="pagination">
-            <util:remotePaginate total="${User.count()}" controller="user" action="loadUserTable" max="20" update="userTableSection"/>
+            <util:remotePaginate total="${User.count()}" controller="user" action="loadUserTable" max="2" update="userTableSection" next="next" prev="prev"/>
         </div>
     </div>
 </div>

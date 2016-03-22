@@ -32,7 +32,7 @@
                             <div class="col-xs-2">
                                 <button type="button" class="btn btn-success buttonSave"
                                         id="topicsaveButtonSubs${iteration}"
-                                        onclick="saveTopicName(${topic.id}, this.id)">Save</button>
+                                        onclick="saveTopicName1(${topic.id}, this.id)">Save</button>
                             </div>
 
                             <div class="col-xs-2">
@@ -76,21 +76,19 @@
 
                     <div class="col-xs-1"></div>
                 </div>
-
+                <div id="sub${topic.id}" class="alert alert-success" style="display: none"></div>
                 <div style="visibility: ${visibility}; padding-bottom:7.5px" class="row">
                     <div class="col-xs-4">
-                        <select class="form-control" id="SeriousnessSubs" onchange="changeSeriousness(this.value,${topic.id},'subscription')">
-                            <option>Serious</option>
-                            <option>Very Serious</option>
-                            <option>Casual</option>
-                        </select>
+                        <g:select name="seriousness" from="${linksharing.Seriousness.values()}"
+                                  class="form-control"
+                                  onchange="changeSeriousness(this.value,${topic.id},'sub')"
+                                  id="sub"
+                                  value="${Subscription.findByUserAndTopic(session.user,topic).seriousness}"
+                        />
                     </div>
 
                     <div class="col-xs-4">
-                        <select class="form-control" id="VisibilitySubs" onchange="changeVisibility(this.value,${topic.id},'subscription')">
-                            <option>Public</option>
-                            <option>Private</option>
-                        </select>
+                        <ls:canUpdateTopic topicId="${topic.id}" panel="'sub'"/>
                     </div>
 
                     <div><a href="javascript:void(0);" data-toggle="modal" data-target="#sendinvite"><i
@@ -123,8 +121,7 @@
         $("#editTopicSubs" + currentElementId).hide();
         $("#topicNameSubs" + currentElementId).show();
     });
-    function saveTopicName(topicId, buttonId) {
-        var buttonClicked = $(".buttonSave > " + buttonId);
+    function saveTopicName1(topicId, buttonId) {
         var currentElementId = buttonId.substr(19);
         $("#editTopicSubs" + currentElementId).hide();
         $("#topicNameSubs" + currentElementId).show();
@@ -133,22 +130,10 @@
             data: {"id":topicId,"topic":$("#topicEditBoxSubs"+currentElementId).val()},
             method: "POST",
             success: function (data) {
-                var response = data.message;
-                if (response == "Topic Updated") {
-                    loadSubscription(function () {
-                        $("#responseMessageSubs").attr("class", "alert alert-success").show();
-                        $("#responseMessageSubs > .visibilityText").text(response);
-                    })
-                    loadTrendingTopics();
-                }
-                else {
-                    $("#responseMessageSubs").attr("class", "alert alert-danger").show();
-                    $("#responseMessageSubs > .visibilityText").text(response);
-                }
+                $('#topicNameSubs'+currentElementId).html(data.message)
             },
             error: function (data) {
-                $("#responseMessageSubs").attr("class", "alert alert-danger").show();
-                $("#responseMessageSubs > .visibilityText").text(data.statusText);
+
             }
         });
     }

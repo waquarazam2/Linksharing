@@ -7,7 +7,6 @@
                 firstName: "required",
                 lastName: "required",
                 email: {
-//                        unique: true,
                     required: true,
                     email: true,
                     remote: "${createLink(controller: 'user',action: 'isEmailIdValid')}"

@@ -23,22 +23,19 @@ class ResourceController {
 
 
     def search(ResourceSearchCO co) {
-        List<Resource> list = Resource.search(co).list();
-        render(view:"search",model:[searchResources:list])
+        List<Resource> list = Resource.search(co).list([max:2]);
+        Integer steps=list.totalCount
+        println steps
+        render(view:"search",model: [searchResources:list,steps:steps])
 
     }
 
-//    def search(ResourceSearchCO co)
-//    {
-//        if(co.q)
-//        {
-//            co.visibility = Visibility.PUBLIC
-//            List<Resource> resources = Resource.search(co).list([max:5]);
-//            render(view:"search",model:[searchResources:resources])
-//        }
-//        else
-//            flash.message = "No input in query"
-//    }
+    def loadSearchResults(ResourceSearchCO co){
+        List<Resource> list = Resource.search(co).list(params);
+        render(template: "/resource/searchResults",model: [searchResources:list])
+    }
+
+
 
     def show(long id)
     {

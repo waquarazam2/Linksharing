@@ -30,6 +30,7 @@ class SubscriptionController {
     }
 
     def update(String seriousness, long id) {
+        log.info( 'called  '+seriousness +'  '+ id)
         def message
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.read(id))
         if (subscription) {
