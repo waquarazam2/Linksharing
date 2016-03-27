@@ -1,6 +1,7 @@
 package linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import org.springframework.beans.factory.annotation.Autowired
 
 class UserController {
@@ -30,6 +31,7 @@ class UserController {
 
     def assetResourceLocator
 
+    @Secured('IS_AUTHENTICATED_FULLY')
     def image(Long id) {
         User user = User.get(id)
         byte[] image

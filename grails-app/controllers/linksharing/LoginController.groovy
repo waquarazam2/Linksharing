@@ -1,8 +1,14 @@
 package linksharing
 
+import grails.plugin.springsecurity.annotation.Secured
+
 class LoginController {
 
+    def springSecurityService
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def index() {
+        def user = springSecurityService.currentUser
+        session.user=user
         if(session.user){
             forward(controller: "User", action: "index")
         }

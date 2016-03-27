@@ -16,8 +16,10 @@ class BootStrap {
         if (User.count == 0) {
             User admin = new User(email: 'waquar.azam@tothenew.com', userName: 'waquarazam2', password: '123456abcd',  firstName: 'Waquar', lastName: 'Azam', admin: true, active: true,confirmPassword:'123456abcd' )
             User normalUser = new User(email: 'mohan.gupta@tothenew.com', userName: 'mohan1243', password: '123456abcd', firstName: 'Mohan', lastName: 'Gupta', admin: false, active: true,confirmPassword:'123456abcd')
+            admin.validate()
+            println admin.errors
             List users = []
-            if (admin.save(flush: true, failOnError: true)) {
+            if (admin.save(flush: true)) {
                 log.info("successfully created ${admin}")
                 users.add(admin)
             } else {

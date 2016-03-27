@@ -12,7 +12,7 @@
 // }
 
 grails.project.groupId = com.ig.linksharing // change this to alter the default package name and Maven publishing destination
-grails.app.context="/"
+grails.app.context = "/"
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
 grails.mime.types = [ // the first one is the default format
@@ -126,12 +126,32 @@ grails {
         port = 465
         username = "waquarazam2@gmail.com"
         password = "31119932621001"
-        props = ["mail.smtp.auth":"true",
-                 "mail.smtp.socketFactory.port":"465",
-                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-                 "mail.smtp.socketFactory.fallback":"false"]
+        props = ["mail.smtp.auth"                  : "true",
+                 "mail.smtp.socketFactory.port"    : "465",
+                 "mail.smtp.socketFactory.class"   : "javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback": "false"]
     }
 }
 
 linksharing.documents.folderPath = "${userHome}/www/linksharing"
-linksharing.serverURL="www.linksharing.com"
+linksharing.serverURL = "www.linksharing.com"
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'linksharing.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'linksharing.UserRole'
+grails.plugin.springsecurity.authority.className = 'linksharing.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+        '/'              : ['IS_AUTHENTICATED_FULLY'],
+        '/index'         : ['IS_AUTHENTICATED_FULLY'],
+        '/index.gsp'     : ['IS_AUTHENTICATED_FULLY'],
+        '/assets/**'     : ['IS_AUTHENTICATED_FULLY'],
+        '/**/js/**'      : ['IS_AUTHENTICATED_FULLY'],
+        '/**/css/**'     : ['IS_AUTHENTICATED_FULLY'],
+        '/**/images/**'  : ['IS_AUTHENTICATED_FULLY'],
+        '/**/favicon.ico': ['IS_AUTHENTICATED_FULLY'],
+        '/login'         : ['IS_AUTHENTICATED_FULLY'],
+        '/topic/show'    : ['IS_AUTHENTICATED_FULLY'],
+        '/resource/show' : ['IS_AUTHENTICATED_FULLY'],
+        '/user/image'    : ['IS_AUTHENTICATED_FULLY']
+]
+

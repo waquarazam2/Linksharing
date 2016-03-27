@@ -1,14 +1,16 @@
 package linksharing
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 class TopicController {
     def topicService
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def update(long id, String visibility) {
        def message=topicService.update(id,visibility)
         render message as JSON
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def show(long id) {
         Topic topic = Topic.read(id)
         List<User> subscribedUsers = topic.subscribedUsers
@@ -16,7 +18,7 @@ class TopicController {
 
         render(view: "index", model: [users: subscribedUsers, topicName: topic.name, resources: resources])
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def save(String topicName, String visibility) {
         Topic topic = new Topic(name: topicName, visibility: Visibility.convertToEnum(visibility), createdBy: session.user)
         if (topic.save()) {
@@ -27,7 +29,7 @@ class TopicController {
         }
         redirect(controller: 'user', action: 'index')
     }
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def updateTopicName(long id, String topic) {
         println '   '+id+'   '+topic
         def message

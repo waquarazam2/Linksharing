@@ -18,9 +18,9 @@ environments {
     development {
         dataSource {
             password = "igdefault"
-            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost:3306/Linksharing_DB"
-            //logSql=true
+            logSql=true
         }
     }
     test {

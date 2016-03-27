@@ -4,7 +4,7 @@ class EmailJob {
     def customMailService
     static triggers = {
         //  simple name:'simpleTrigger', repeatInterval: 604800000, repeatCount: -1
-        simple name: 'emailJob', startDelay: 300000
+     //   simple name: 'emailJob', startDelay: 300000
     }
 
     def execute() {
