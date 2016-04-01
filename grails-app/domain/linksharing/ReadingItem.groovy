@@ -7,7 +7,34 @@ class ReadingItem {
     Date dateCreated
     Date lastUpdated
 
+    boolean equals(o) {
+        if (this.is(o)) return true
+        if (!(o instanceof ReadingItem)) return false
 
+        ReadingItem that = (ReadingItem) o
+
+        if (dateCreated != that.dateCreated) return false
+        if (id != that.id) return false
+        if (isRead != that.isRead) return false
+        if (lastUpdated != that.lastUpdated) return false
+        if (resource != that.resource) return false
+        if (user != that.user) return false
+        if (version != that.version) return false
+
+        return true
+    }
+
+    int hashCode() {
+        int result
+        result = (resource != null ? resource.hashCode() : 0)
+        result = 31 * result + (user != null ? user.hashCode() : 0)
+        result = 31 * result + (isRead != null ? isRead.hashCode() : 0)
+        result = 31 * result + (dateCreated != null ? dateCreated.hashCode() : 0)
+        result = 31 * result + (lastUpdated != null ? lastUpdated.hashCode() : 0)
+        result = 31 * result + (id != null ? id.hashCode() : 0)
+        result = 31 * result + (version != null ? version.hashCode() : 0)
+        return result
+    }
     static constraints = {
         resource(nullable: false)
         user(nullable: false, unique: 'resource')

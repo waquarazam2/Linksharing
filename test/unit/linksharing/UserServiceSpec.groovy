@@ -9,6 +9,5 @@ import spock.lang.Specification
 @TestFor(UserService)
 class UserServiceSpec extends Specification {
 
-    void "test something"() {
-    }
+
 }

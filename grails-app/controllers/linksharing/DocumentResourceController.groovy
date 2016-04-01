@@ -43,17 +43,23 @@ class DocumentResourceController {
 
             response.setHeader("Content-Disposition", "Attachment")
             File file = new File(filePath)
-            FileInputStream fileInputStream = new FileInputStream(file)
-            OutputStream outputStream = response.getOutputStream()
-            byte[] buffer = new byte[4096]
-            int len
-            while ((len = fileInputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, len)
+            if(file.exists()) {
+                FileInputStream fileInputStream = new FileInputStream(file)
+                OutputStream outputStream = response.getOutputStream()
+                byte[] buffer = new byte[4096]
+                int len
+                while ((len = fileInputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, len)
+                }
+                outputStream.flush()
+                outputStream.close()
+                fileInputStream.close()
             }
-            outputStream.flush()
-            outputStream.close()
-            fileInputStream.close()
+            else{
+                flash.message = "Resource file missing."
+            }
         }
+        redirect(controller: 'user',action: 'index')
     }
 }
 

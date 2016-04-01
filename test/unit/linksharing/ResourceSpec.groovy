@@ -9,7 +9,5 @@ import spock.lang.Specification
 @TestFor(Resource)
 class ResourceSpec extends Specification {
 
-    void "Resource can have many ratings"() {
 
-    }
 }

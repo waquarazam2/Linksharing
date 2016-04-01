@@ -9,6 +9,5 @@ import spock.lang.Specification
 @TestFor(ReadingItemController)
 class ReadingItemControllerSpec extends Specification {
 
-    void "test something"() {
-    }
+
 }

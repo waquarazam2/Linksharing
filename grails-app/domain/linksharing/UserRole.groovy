@@ -3,7 +3,6 @@ package linksharing
 import grails.gorm.DetachedCriteria
 import groovy.transform.ToString
 
-import org.apache.commons.lang.builder.HashCodeBuilder
 
 @ToString(cache=true, includeNames=true, includePackage=false)
 class UserRole implements Serializable {
@@ -19,22 +18,6 @@ class UserRole implements Serializable {
 		role = r
 	}
 
-	@Override
-	boolean equals(other) {
-		if (!(other instanceof UserRole)) {
-			return false
-		}
-
-		other.user?.id == user?.id && other.role?.id == role?.id
-	}
-
-	@Override
-	int hashCode() {
-		def builder = new HashCodeBuilder()
-		if (user) builder.append(user.id)
-		if (role) builder.append(role.id)
-		builder.toHashCode()
-	}
 
 	static UserRole get(long userId, long roleId) {
 		criteriaFor(userId, roleId).get()
@@ -55,6 +38,29 @@ class UserRole implements Serializable {
 		def instance = new UserRole(user: user, role: role)
 		instance.save(flush: flush, insert: true)
 		instance
+	}
+
+	boolean equals(o) {
+		if (this.is(o)) return true
+		if (!(o instanceof UserRole)) return false
+
+		UserRole userRole = (UserRole) o
+
+		if (id != userRole.id) return false
+		if (role != userRole.role) return false
+		if (user != userRole.user) return false
+		if (version != userRole.version) return false
+
+		return true
+	}
+
+	int hashCode() {
+		int result
+		result = (user != null ? user.hashCode() : 0)
+		result = 31 * result + (role != null ? role.hashCode() : 0)
+		result = 31 * result + (id != null ? id.hashCode() : 0)
+		result = 31 * result + (version != null ? version.hashCode() : 0)
+		return result
 	}
 
 	static boolean remove(User u, Role r, boolean flush = false) {

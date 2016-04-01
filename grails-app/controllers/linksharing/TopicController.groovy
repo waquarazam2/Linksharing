@@ -50,7 +50,6 @@ class TopicController {
     }
 
     def delete(long id) {
-        def message
         Topic topic = Topic.load(id)
         if (topic) {
             List resources = Resource.findAllByTopic(topic)

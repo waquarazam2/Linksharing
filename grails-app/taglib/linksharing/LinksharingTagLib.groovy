@@ -8,7 +8,6 @@ class LinksharingTagLib {
         ReadingItem readingItem = ReadingItem.findById(itemId)
         flash.query = attrs.query
         if (user && readingItem) {
-            def id = readingItem.id
             def isRead = readingItem.isRead
             if (isRead) {
                 out << "<a class='unread' data-id=${attrs.id} style='text-decoration:underline;font-size:10px' > Mark as Unread </a>"
@@ -85,7 +84,7 @@ class LinksharingTagLib {
     def canUpdateTopic = { attrs, body ->
         User user = session.user
         Topic topic = Topic.get(attrs.topicId)
-        if (user.admin || user==topic.createdBy) {
+        if (user?.admin || user==topic?.createdBy) {
             out << g.select(name: 'visibility',onchange: "changeVisibility(this.value,${attrs.topicId},${attrs.panel})", class:'visibility form-control',from: ['PUBLIC','PRIVATE'], value: "${topic.visibility}",selected:"${topic.visibility}")
         }
 

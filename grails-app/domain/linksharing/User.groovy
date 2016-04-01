@@ -23,6 +23,66 @@ class User implements Serializable {
     boolean accountLocked
     boolean passwordExpired
 
+    boolean equals(o) {
+
+        if (this.is(o)) return true
+        if (!(o instanceof User)) return false
+
+        User user = (User) o
+
+        if (accountExpired != user.accountExpired) return false
+        if (accountLocked != user.accountLocked) return false
+        if (passwordExpired != user.passwordExpired) return false
+        if (active != user.active) return false
+        if (admin != user.admin) return false
+        if (confirmPassword != user.confirmPassword) return false
+        if (dateCreated != user.dateCreated) return false
+        if (email != user.email) return false
+        if (firstName != user.firstName) return false
+        if (id != user.id) return false
+        if (lastName != user.lastName) return false
+        if (lastUpdated != user.lastUpdated) return false
+        if (password != user.password) return false
+        if (!Arrays.equals(photo, user.photo)) return false
+        if (photoType != user.photoType) return false
+        if (readingItems != user.readingItems) return false
+        if (resources != user.resources) return false
+        if (springSecurityService != user.springSecurityService) return false
+        if (subscriptions != user.subscriptions) return false
+        if (topics != user.topics) return false
+        if (userName != user.userName) return false
+        if (version != user.version) return false
+
+        return true
+    }
+
+    int hashCode() {
+        int result
+        result = (springSecurityService != null ? springSecurityService.hashCode() : 0)
+        result = 31 * result + (email != null ? email.hashCode() : 0)
+        result = 31 * result + (userName != null ? userName.hashCode() : 0)
+        result = 31 * result + (password != null ? password.hashCode() : 0)
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0)
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0)
+        result = 31 * result + (photo != null ? Arrays.hashCode(photo) : 0)
+        result = 31 * result + (photoType != null ? photoType.hashCode() : 0)
+        result = 31 * result + (admin != null ? admin.hashCode() : 0)
+        result = 31 * result + (active != null ? active.hashCode() : 0)
+        result = 31 * result + (dateCreated != null ? dateCreated.hashCode() : 0)
+        result = 31 * result + (lastUpdated != null ? lastUpdated.hashCode() : 0)
+        result = 31 * result + (accountExpired ? 1 : 0)
+        result = 31 * result + (accountLocked ? 1 : 0)
+        result = 31 * result + (passwordExpired ? 1 : 0)
+        result = 31 * result + (confirmPassword != null ? confirmPassword.hashCode() : 0)
+        result = 31 * result + (id != null ? id.hashCode() : 0)
+        result = 31 * result + (version != null ? version.hashCode() : 0)
+        result = 31 * result + (subscriptions != null ? subscriptions.hashCode() : 0)
+        result = 31 * result + (topics != null ? topics.hashCode() : 0)
+        result = 31 * result + (readingItems != null ? readingItems.hashCode() : 0)
+        result = 31 * result + (resources != null ? resources.hashCode() : 0)
+        return result
+    }
+
     User(String userName, String password) {
         this()
         this.userName = userName

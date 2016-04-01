@@ -9,6 +9,5 @@ import spock.lang.Specification
 @TestFor(ResourceRatingController)
 class ResourceRatingControllerSpec extends Specification {
 
-    void "test something"() {
-    }
+
 }

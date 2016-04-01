@@ -48,7 +48,7 @@
                             <g:if test="${session.user.admin}">
                             <li><g:link url="[controller: 'user',action: 'userShow']" href="#">Users</g:link></li>
                             </g:if>
-                           <li> <g:link controller="login" action="logout">Logout</g:link></li>
+                           <li> <a href="/j_spring_security_logout">Logout</a></li>
 
                         </ul>
                     </div>

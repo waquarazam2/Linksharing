@@ -2,7 +2,6 @@ package linksharing
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
-import org.springframework.beans.factory.annotation.Autowired
 
 class UserController {
 

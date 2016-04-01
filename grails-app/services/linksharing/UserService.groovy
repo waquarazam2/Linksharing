@@ -5,9 +5,6 @@ import grails.transaction.Transactional
 @Transactional
 class UserService {
 
-    def saveService() {
-        return 'Hello'
-    }
 
     def save(long id,String firstName,String lastName,String userName,byte[] photo) {
         User user = User.get(id)
@@ -29,7 +26,7 @@ class UserService {
         User user=User.get(id)
         if(user){
             user.password=password
-            user.confirmPassword=password
+            user.confirmPassword=confirmPassword
             if(user.save()){
                 return true
             }else{
@@ -45,7 +42,6 @@ class UserService {
     def changeActivation(long userId,Boolean active){
         User user=User.get(userId)
         user.confirmPassword=user.password
-        String message
         if(user){
             user.active=active
             if(user.save(flush: true)){

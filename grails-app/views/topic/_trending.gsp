@@ -82,7 +82,7 @@
                     <div style="padding-bottom:7.5px" class="row">
                         <div class="col-xs-4">
 
-                            <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
+                            <g:if test="${session?.user?.admin || session?.user?.id == trendingTopic.createdBy.id}">
                                 <g:select name="seriousness" from="${linksharing.Seriousness.values()}"
                                           class="form-control"
                                           onchange="changeSeriousness(this.value,${trendingTopic?.id},'tren')"
@@ -98,7 +98,7 @@
                         <div><a href="javascript:void(0);" data-toggle="modal" data-target="#sendinvite"><i
                                 class="glyphicon glyphicon-envelope col-xs-1"
                                 style="font-size:20px;"></i></a></div>
-                        <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
+                        <g:if test="${session?.user?.admin || session?.user?.id == trendingTopic.createdBy.id}">
 
                             <div><a href="javascript:void(0);" class="editButton" id="editTopicIcon${iteration++}"><i
                                     class="glyphicon glyphicon-file col-xs-1"
