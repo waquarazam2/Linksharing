@@ -6,14 +6,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(DocuMentResourceService)
-class DocuMentResourceServiceSpec extends Specification {
-
-    def setup() {
-    }
-
-    def cleanup() {
-    }
+@TestFor(ResourceService)
+class ResourceServiceSpec extends Specification {
 
     void "test something"() {
     }

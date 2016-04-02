@@ -7,7 +7,6 @@
                 firstName: "required",
                 lastName: "required",
                 email: {
-//                        unique: true,
                     required: true,
                     email: true,
                     remote: "${createLink(controller: 'user',action: 'isEmailIdValid')}"
@@ -26,8 +25,8 @@
             },
 // Specify the validation error messages
             messages: {
-                firstname: "Please enter your first name",
-                lastname: "Please enter your last name",
+                firstName: "Please enter your first name",
+                lastName: "Please enter your last name",
                 password: {
                     required: "Please provide a password",
                     minlength: "Your password must be at least 5 characters long"

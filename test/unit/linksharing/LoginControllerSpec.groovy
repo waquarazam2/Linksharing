@@ -9,12 +9,6 @@ import spock.lang.Specification
 @TestFor(LoginController)
 class LoginControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "Login index forward"() {
         setup:
         session.user = new User()

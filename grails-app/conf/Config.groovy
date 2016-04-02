@@ -134,3 +134,4 @@ grails {
 }
 
 linksharing.documents.folderPath = "${userHome}/www/linksharing"
+linksharing.serverURL="www.linksharing.com"

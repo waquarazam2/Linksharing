@@ -12,12 +12,6 @@ import spock.util.mop.Use
 @TestFor(SubscriptionController)
 class SubscriptionControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "delete response success when successful"() {
         setup:
         Subscription subscription = new Subscription()

@@ -9,12 +9,6 @@ import spock.lang.Specification
 @TestFor(ReadingItem)
 class ReadingItemSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "User should not be null"() {
         given:
         ReadingItem readingItem = new ReadingItem()

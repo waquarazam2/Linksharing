@@ -11,10 +11,10 @@ class LinksharingTagLib {
             def id = readingItem.id
             def isRead = readingItem.isRead
             if (isRead) {
-                out << "<span class='unread' data-id=${attrs.id} style='color:blue' > Mark as Unread </span>"
+                out << "<a class='unread' data-id=${attrs.id} style='text-decoration:underline;font-size:10px' > Mark as Unread </a>"
             } else {
 
-                out << "<span class='read' data-id=${attrs.id} style='color:blue' > Mark as Read </span>"
+                out << "<a class='read' data-id=${attrs.id} style='text-decoration:underline;font-size:10px'  > Mark as Read </a>"
 
 
             }
@@ -47,7 +47,7 @@ class LinksharingTagLib {
     def showSubscribe = { attr, body ->
         User user = session.user
         if (user) {
-            (user.isSubscribed(attr.topicId)) ? out << g.remoteLink(controller: "subscription", action: "delete", update: 'message', id: "${attr.topicId}", "Unsubscribe") : out << g.remoteLink(controller: "subscription", action: "save", update: 'message', id: "${attr.topicId}", "Subscribe")
+            (user.isSubscribed(attr.topicId)) ? out << g.remoteLink(controller: "subscription", action: "delete", update: "${attr.topicId}", id: "${attr.topicId}", "Unsubscribe") : out << g.remoteLink(controller: "subscription", action: "save", update: "${attr.topicId}", id: "${attr.topicId}", "Subscribe")
         }
     }
 
@@ -86,16 +86,7 @@ class LinksharingTagLib {
         User user = session.user
         Topic topic = Topic.get(attrs.topicId)
         if (user.admin || user==topic.createdBy) {
-            out << "<span class='col-xs-2'>"
-            out << g.select(name: 'visibility', class:'visibility',from: ['PUBLIC','PRIVATE'], value: "${topic.visibility}",selected:"${topic.visibility}")
-
-            out << "</span><br>"
-            out << "<span class='col-xs-2'>"
-            out << "<a href='#' class='seditTopicInline' id='sedit-${attrs.topicId}' style='cursor: pointer;'><div class='glyphicon glyphicon-edit'></div></a></span>"
-
-            out << "<span class='col-xs-2'><a href='#' id='sdel-${attrs.topicId}' class='sdeleteTopic' style='cursor: pointer;'><div class='glyphicon glyphicon-trash'></div></a>"
-
-            out << "</span><br>"
+            out << g.select(name: 'visibility',onchange: "changeVisibility(this.value,${attrs.topicId},${attrs.panel})", class:'visibility form-control',from: ['PUBLIC','PRIVATE'], value: "${topic.visibility}",selected:"${topic.visibility}")
         }
 
     }
@@ -106,6 +97,13 @@ class LinksharingTagLib {
 
         out << g.select(name: 'seriousness',class:'seriousness',from: ['SERIOUS', 'VERY SERIOUS', 'CASUAL'], value: "${subscription.seriousness}",selected:"${subscription.seriousness}")
 
+    }
+
+    def showActivate = { attr, body ->
+        User user = session.user
+        if (user) {
+            (user.active) ? out << g.remoteLink(controller: "user", action: "activateUser", update: "${attr.id}", id: "${attr.topicId}", "Unsubscribe") : out << g.remoteLink(controller: "subscription", action: "save", update: "${attr.topicId}", id: "${attr.topicId}", "Subscribe")
+        }
     }
 
 

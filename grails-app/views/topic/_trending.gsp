@@ -1,4 +1,3 @@
-
 <%@ page import="linksharing.Seriousness; linksharing.Subscription; linksharing.Topic" %>
 <div class="panel panel-default" id="trendingTopic">
     <div class="panel-heading"><strong>Trending Topics</strong></div>
@@ -13,8 +12,10 @@
         <g:set var="iteration" value="${0}"/>
         <g:each in="${trendingTopics}" var="trendingTopic">
             <div>
+
                 <div class="col-xs-2">
-                    <img src="${g.createLink(controller: 'user', action: 'image', params:[id:trendingTopic.createdBy.id])}" style="width: 65px;height: 65px;"/>
+                    <img src="${g.createLink(controller: 'user', action: 'image', params: [id: trendingTopic.createdBy.id])}"
+                         style="width: 65px;height: 65px;"/>
 
                 </div>
 
@@ -77,22 +78,21 @@
 
                         <div class="col-xs-1"></div>
                     </div>
-
+                    <div id="tren${trendingTopic.id}" class="alert alert-success" style="display: none"></div>
                     <div style="padding-bottom:7.5px" class="row">
                         <div class="col-xs-4">
+
                             <g:if test="${session.user.admin || session.user.id == trendingTopic.createdBy.id}">
                                 <g:select name="seriousness" from="${linksharing.Seriousness.values()}"
                                           class="form-control"
-                                          onchange="changeSeriousness(this.value,${trendingTopic.id},'trendingTopics')"
-                                          id="Seriousness"/>
+                                          onchange="changeSeriousness(this.value,${trendingTopic?.id},'tren')"
+                                          id="Seriousness"
+                                          value="${Subscription?.findByUserAndTopic(session.user, Topic.get(trendingTopic?.id))?.seriousness}"/>
                             </g:if>
                         </div>
 
                         <div class="col-xs-4">
-                            <g:select name="visibility" from="${linksharing.Visibility.values()}"
-                                      onchange="changeVisibility(this.value,${trendingTopic.id},'trendingTopics')"
-                                      class="form-control"
-                                      id="Visibility"/>
+                            <ls:canUpdateTopic topicId="${trendingTopic.id}" panel="'tren'"/>
                         </div>
 
                         <div><a href="javascript:void(0);" data-toggle="modal" data-target="#sendinvite"><i
@@ -102,11 +102,15 @@
 
                             <div><a href="javascript:void(0);" class="editButton" id="editTopicIcon${iteration++}"><i
                                     class="glyphicon glyphicon-file col-xs-1"
-                                    style="font-size:20px;"></i></a></div>
+                                    style="font-size:20px;"></i>
+                            </a>
 
-                            <div><a href="javascript:void(0);" onclick="deleteTopic(${trendingTopic.id}, 'trendingTopics')"><i
-                                    class="glyphicon glyphicon-trash col-xs-1"
-                                    style="font-size:20px;"></i></a></div>
+                            </div>
+
+                            <div><g:link
+                                    url="[controller: 'topic', action: 'delete', params: [id: trendingTopic.id]]"><i
+                                        class="glyphicon glyphicon-trash col-xs-1"
+                                        style="font-size:20px;"></i></g:link></div>
                         </g:if>
                     </div>
                 </div>
@@ -128,33 +132,18 @@
         $("#topicName" + currentElementId).show();
     });
     function saveTopicName(topicId, buttonId) {
-        console.log("This was called");
-        var buttonClicked = $(".buttonSave > " + buttonId);
         var currentElementId = buttonId.substr(15);
         $("#editTopic" + currentElementId).hide();
         $("#topicName" + currentElementId).show();
-
         $.ajax({
             url: "/topic/updateTopicName",
             data: {"id":topicId,"topic":$("#topicEditBox"+currentElementId).val()},
             method: "POST",
             success: function (data) {
-                var response = data.message;
-                if (response == "Topic Updated") {
-                    loadTrendingTopics(function () {
-                        $("#responseMessage").attr("class", "alert alert-success").show();
-                        $("#responseMessage > .visibilityText").text(response);
-                        loadSubscription();
-                    })
-                }
-                else {
-                    $("#responseMessage").attr("class", "alert alert-danger").show();
-                    $("#responseMessage > .visibilityText").text(response);
-                }
+                $("#topicName" + currentElementId).html(data.message)
             },
             error: function (data) {
-                $("#responseMessage").attr("class", "alert alert-danger").show();
-                $("#responseMessage > .visibilityText").text(data.statusText);
+
             }
         });
     }

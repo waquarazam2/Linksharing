@@ -4,7 +4,6 @@ import grails.converters.JSON
 
 class DocumentResourceController {
 
-    def index() {}
     def grailsApplication
 
     def saveDocument(DocumentResourceCO documentResourceCO) {

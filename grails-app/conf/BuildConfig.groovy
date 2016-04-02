@@ -46,13 +46,13 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
 
+
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
     }
-
     plugins {
         // plugins for the build system only
         build ":tomcat:7.0.55.3" // or ":tomcat:8.0.22"
@@ -78,6 +78,23 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:mail:1.0.7"
 
         compile "org.grails.plugins:jquery-validation:1.9"
+        compile ':quartz:1.0.1'
+        compile "org.grails.plugins:codenarc:0.25.1"
+        compile "org.grails.plugins:remote-pagination:0.4.8"
+        compile "org.grails.plugins:spring-security-core:2.0.0"
+        test ":code-coverage:2.0.3-3"
+
 
     }
+
+    codenarc {
+        ruleSetFiles = "file:grails-app/conf/CodeNarcRules.groovy"
+        reports = {
+            HtmlReport('html') {                  // Report type is 'html'
+                outputFile = 'target/CodeNarcReport.html'
+                title = 'My Test Code Narc Report'
+            }
+        }
+    }
+
 }

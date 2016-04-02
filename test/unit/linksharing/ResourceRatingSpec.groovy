@@ -9,12 +9,6 @@ import spock.lang.Specification
 @TestFor(ResourceRating)
 class ResourceRatingSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "User should not be null"() {
         given:
         ResourceRating resourceRating = new ResourceRating()
