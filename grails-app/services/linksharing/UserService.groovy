@@ -1,6 +1,7 @@
 package linksharing
 
 import grails.transaction.Transactional
+import org.springframework.web.multipart.MultipartFile
 
 @Transactional
 class UserService {
@@ -59,16 +60,16 @@ class UserService {
         }
     }
 
-    def register(String firstName,String lastName,String userName,String email,org.springframework.web.multipart.commons.CommonsMultipartFile photo,String password,String confirmPassword) {
+    def register(UserCO co) {
         User user = new User()
-        user.firstName = firstName
-        user.lastName = lastName
-        user.userName = userName
-        user.email=email
-        user.photo = photo.bytes
-        user.photoType=photo.contentType
-        user.password=password
-        user.confirmPassword=confirmPassword
+        user.firstName = co.firstName
+        user.lastName = co.lastName
+        user.userName = co.userName
+        user.email=co.email
+        user.photo = co.photo.bytes
+        user.photoType=co.photo.contentType
+        user.password=co.password
+        user.confirmPassword=co.confirmPassword
         user.admin=false
         user.active=true
 

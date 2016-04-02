@@ -141,23 +141,23 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'linksharing.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'linksharing.UserRole'
 grails.plugin.springsecurity.authority.className = 'linksharing.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-        '/'               : ['IS_AUTHENTICATED_FULLY'],
-        '/index'          : ['IS_AUTHENTICATED_FULLY'],
+        '/'               : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/index'          : ['IS_AUTHENTICATED_ANONYMOUSLY'],
         '/index.gsp'      : ['IS_AUTHENTICATED_FULLY'],
-        '/assets/**'      : ['IS_AUTHENTICATED_FULLY'],
-        '/**/js/**'       : ['IS_AUTHENTICATED_FULLY'],
-        '/**/css/**'      : ['IS_AUTHENTICATED_FULLY'],
-        '/**/images/**'   : ['IS_AUTHENTICATED_FULLY'],
-        '/**/favicon.ico' : ['IS_AUTHENTICATED_FULLY'],
-        '/login'          : ['IS_AUTHENTICATED_FULLY'],
+        '/assets/**'      : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/js/**'       : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/css/**'      : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/images/**'   : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/favicon.ico' : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/login'          : ['IS_AUTHENTICATED_ANONYMOUSLY'],
         '/topic/show'     : ['IS_AUTHENTICATED_FULLY'],
         '/resource/show'  : ['IS_AUTHENTICATED_FULLY'],
-        '/user/image'     : ['IS_AUTHENTICATED_FULLY'],
+        '/user/image'     : ['IS_AUTHENTICATED_ANONYMOUSLY'],
         '/user/**'        : ['IS_AUTHENTICATED_FULLY'],
         '/Topic/**'       : ['IS_AUTHENTICATED_FULLY'],
         '/Subscription/**': ['IS_AUTHENTICATED_FULLY'],
         '/Resource/**'    : ['IS_AUTHENTICATED_FULLY'],
-        'Resource/search' : ['permitAll']
+        'Resource/search' : ['IS_AUTHENTICATED_ANONYMOUSLY']
 
 ]
 

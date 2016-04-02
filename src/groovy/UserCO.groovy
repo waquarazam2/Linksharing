@@ -1,4 +1,8 @@
 package linksharing
+
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.commons.CommonsMultipartFile
+
 class UserCO {
     String email
     String userName
@@ -8,6 +12,6 @@ class UserCO {
     String lastName
     boolean active
     boolean admin
-    File photo
+    CommonsMultipartFile photo
 
 }

@@ -16,8 +16,7 @@ class UserController {
     }
 
     def register(UserCO co) {
-        def f = request.getFile('photo')
-        User user=userService.register(co.firstName,co.lastName,co.userName,co.email,f,co.password,co.confirmPassword)
+        User user=userService.register(co)
         if (user) {
             session.user=user
             redirect(controller: 'login', action: 'index')
@@ -30,7 +29,7 @@ class UserController {
 
     def assetResourceLocator
 
-    @Secured('IS_AUTHENTICATED_FULLY')
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def image(Long id) {
         User user = User.get(id)
         byte[] image
