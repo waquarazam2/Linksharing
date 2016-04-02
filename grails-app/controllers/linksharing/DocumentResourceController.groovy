@@ -6,6 +6,7 @@ class DocumentResourceController {
 
     def index() {}
     def grailsApplication
+
     def saveDocument(DocumentResourceCO documentResourceCO) {
 
         if (documentResourceCO == null) {

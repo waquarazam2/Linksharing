@@ -1,4 +1,5 @@
 package linksharing
+
 class UserCO {
     String email
     String userName
