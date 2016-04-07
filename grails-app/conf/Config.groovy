@@ -12,7 +12,7 @@
 // }
 
 grails.project.groupId = com.ig.linksharing // change this to alter the default package name and Maven publishing destination
-grails.app.context="/"
+grails.app.context = "/"
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
 grails.mime.types = [ // the first one is the default format
@@ -119,3 +119,45 @@ log4j.main = {
     debug 'grails.app'
     all "com.intellgrape.link_sharing.controllers.UtilController"
 }
+
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "waquarazam2@gmail.com"
+        password = "31119932621001"
+        props = ["mail.smtp.auth"                  : "true",
+                 "mail.smtp.socketFactory.port"    : "465",
+                 "mail.smtp.socketFactory.class"   : "javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback": "false"]
+    }
+}
+
+linksharing.documents.folderPath = "${userHome}/www/linksharing"
+linksharing.serverURL = "www.linksharing.com"
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'linksharing.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'linksharing.UserRole'
+grails.plugin.springsecurity.authority.className = 'linksharing.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+        '/'               : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/index'          : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/index.gsp'      : ['IS_AUTHENTICATED_FULLY'],
+        '/assets/**'      : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/js/**'       : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/css/**'      : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/images/**'   : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**/favicon.ico' : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/login'          : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/topic/show'     : ['IS_AUTHENTICATED_FULLY'],
+        '/resource/show'  : ['IS_AUTHENTICATED_FULLY'],
+        '/user/image'     : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/user/**'        : ['IS_AUTHENTICATED_FULLY'],
+        '/Topic/**'       : ['IS_AUTHENTICATED_FULLY'],
+        '/Subscription/**': ['IS_AUTHENTICATED_FULLY'],
+        '/Resource/**'    : ['IS_AUTHENTICATED_FULLY'],
+        'Resource/search' : ['IS_AUTHENTICATED_ANONYMOUSLY']
+
+]
+

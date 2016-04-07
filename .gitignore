@@ -6,4 +6,5 @@ linksharing-grailsPlugins.iml
 .classpath
 .idea/
 .slcache/
+cobertura.ser
 

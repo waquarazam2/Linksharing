@@ -1,13 +1,19 @@
 package linksharing
 
+import grails.plugin.springsecurity.annotation.Secured
+
 class LoginController {
 
+    def springSecurityService
     def index() {
+        def user = springSecurityService.currentUser
+        session.user=user
         if(session.user){
             forward(controller: "User", action: "index")
         }
         else{
-            render("failure")
+            //render("failure")
+            render(view: "index")
         }
     }
 
@@ -16,14 +22,16 @@ class LoginController {
         if(user){
             if(user.active==true){
                 session.user=user
-                forward(controller: 'login',action: 'index')
+                redirect(controller: 'login',action: 'index')
             }
             else{
                 flash.error='Your account is not active'
+                render flash.error
             }
         }
         else{
                 flash.error='User not found'
+                render flash.error
         }
     }
 

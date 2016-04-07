@@ -10,41 +10,47 @@ import spock.util.mop.ConfineMetaClassChanges
 @TestFor(UserController)
 class UserControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
+    @ConfineMetaClassChanges(value = [User,ReadingItem])
     void "index"() {
+        setup:
+        User user =new User()
+        user.metaClass.getSubscribedTopics={
+            return [new Topic()]
+        }
+        session.user=user
+        ReadingItem.metaClass.static.getReadingItems={User usr->
+            return [new ReadingItem()]
+        }
+
         when:
         controller.index()
 
         then:
-        response.contentAsString=='User dashboard'
+        response.contentAsString!=null
     }
 
     void "register should render success when user is saved"(){
         setup:
-        User.metaClass.save = {
-            return true
-        }
+        UserCO co = new UserCO()
+        def mockedUserService = Mock(UserService)
+        mockedUserService.register(co) >>new User()
+        controller.userService=mockedUserService
 
         when:
-        controller.register()
+        controller.register(co)
 
         then:
-        response.contentAsString=='success'
+        response.redirectedUrl !=null
     }
 
    void "register should set flash error on save fail"(){
        setup:
-       User.metaClass.save = {
-           return  false
-       }
+       UserCO co = new UserCO()
+       def mockedUserService = Mock(UserService)
+       controller.userService=mockedUserService
 
        when:
-       controller.register()
+       controller.register(co)
 
        then:
        flash.error == 'User not registered'

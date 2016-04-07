@@ -9,12 +9,6 @@ import spock.lang.Specification
 @TestFor(TopicController)
 class TopicControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "show public topic"() {
         given:
         Topic.metaClass.'static'.read = { def id ->

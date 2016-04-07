@@ -9,12 +9,6 @@ import spock.lang.Specification
 @TestFor(LinkResource)
 class LinkResourceSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "TestingToString"(){
         setup:
         LinkResource linkResource=new LinkResource(url: "https://www.google.com")
