@@ -81,7 +81,7 @@ grails.project.dependency.resolution = {
         compile ':quartz:1.0.1'
         compile "org.grails.plugins:codenarc:0.25.1"
         compile "org.grails.plugins:remote-pagination:0.4.8"
-        compile "org.grails.plugins:spring-security-core:2.0.0"
+       // compile "org.grails.plugins:spring-security-core:2.0.0"
         test ":code-coverage:2.0.3-3"
 
 
